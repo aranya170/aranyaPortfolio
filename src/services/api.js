@@ -72,7 +72,11 @@ async function request(endpoint, options = {}) {
 export const api = {
   // Public Portfolio API
   getHealth: () => request("/health"),
-  getPortfolio: () => request("/portfolio"),
+  // Give a sleeping Render instance time to wake, but don't spin forever
+  getPortfolio: () =>
+    request("/portfolio", {
+      signal: typeof AbortSignal !== "undefined" ? AbortSignal.timeout?.(60000) : undefined,
+    }),
   sendContactMessage: (msg) =>
     request("/contact", {
       method: "POST",

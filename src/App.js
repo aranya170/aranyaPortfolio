@@ -13,6 +13,7 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import GitHubContributions from "./components/GitHubContributions";
 import { StarsCanvas } from "./components/StarBackground";
+import DataSyncIndicator from "./components/DataSyncIndicator";
 import "./App.css";
 import "./styles/Global.css";
 
@@ -24,6 +25,7 @@ function MainPortfolio() {
   return (
     <div className="App">
       {showStars && <StarsCanvas />}
+      <DataSyncIndicator />
       <>
         <NavBar showStars={showStars} setShowStars={setShowStars} />
         <SideNavBar showStars={showStars} setShowStars={setShowStars} />

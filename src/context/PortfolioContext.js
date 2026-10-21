@@ -18,10 +18,7 @@ const initialDefaultData = {
     title: "About Me",
     profile_image: "/assets/Aranya Kishor Das.png",
     paragraphs: [
-      `Hi, my name is Aranya and I enjoy solving puzzles, building things, and exploring technology. My journey began in 2015 when I became fascinated by <span class="highlight">remote-controlled cars</span> and microcontrollers like <span class="highlight">Arduino and ESP</span>. That childhood curiosity sparked a lifelong passion for electronics and robotics.`,
-      `From 2015 to 2019, I explored the vast fields of computer science, graphics design, and software engineering. During the pandemic, I deep-dived into <span class="highlight">Web Development and Figma Design</span>. My academic journey eventually led me to United International University, after receiving 19 admission offers from universities in the <span class="highlight">USA and Switzerland</span>.`,
-      `In 2024, I pivoted my focus toward <span class="highlight">Deep Learning and Artificial Intelligence</span>. Today, I serve as an Undergraduate Research Assistant at UIU, a Teaching Assistant for IoT and Robotics, and the <span class="highlight">President of the UIU Robotics Club</span>, where I continue to push the boundaries of intelligent systems.`,
-      `Outside of work, I love playing video games. I'm also into aesthetic interior designs and I love hoarding cool tech products.`,
+      "I am an undergraduate research assistant and a robotics enthusiast, and the President of the UIU Robotics Club at United International University, following a childhood spark for electronics that expanded into web development, deep learning, and artificial intelligence. Driven by a passion for solving puzzles and building things, my background spans computer science, design, and multiple academic achievements. Outside of my technical work and leadership roles, I enjoy playing video games, exploring designs, and collecting cool tech products.",
     ],
     timeline_link_text: "View my timeline to learn more about my unique journey",
     contact_button_text: "Get in Touch",
@@ -34,7 +31,7 @@ const initialDefaultData = {
       duration: "Feb 2024 - Present",
       location: "Dhaka, Bangladesh",
       descriptions: [
-        "Served as an Undergraduate Assistant under Professor Dr. Mohammad Nurul Huda.",
+        "Served as an Undergraduate Assistant.",
         "Created RoboNeT, the first-ever open-source robotics, networking, IoT & data communication repository in Bangladesh.",
         "Facilitated hands-on labs and mentoring for students in robotics and embedded systems.",
       ],
@@ -43,19 +40,21 @@ const initialDefaultData = {
     {
       company: "UIU Robotics Club",
       job_title: "President",
-      duration: "Dec 2024 - Present",
+      duration: "Nov 2025 - Present",
       location: "Dhaka, Bangladesh",
       descriptions: [
-        "Led a multidisciplinary organization with 200+ active members building cutting-edge rovers and drones.",
-        "Architected and deployed the official club web platform (robotics.uiu.ac.bd).",
-        "Represented the university at national and international robotics competitions.",
+        "Strategic Leadership: Directing the organization's overarching strategy, operations, and corporate partnerships to drive success in national competitions.",
+        "Team Mentorship: Actively mentoring sub-team leads across the Software, Hardware, and R&D divisions.",
+        "Technical Training: Planning and executing advanced technical training series, such as \"RoboNeT in Practice.\"",
+        "Financial & Corporate Management: Managing comprehensive finances and securing corporate sponsorships.",
+        "Event Oversight: Directing the execution of large-scale initiatives, including CSE Fest, the Global Robotics and Innovation Competition, and the World Robot Olympiad.",
       ],
       sort_order: 2,
     },
     {
       company: "Self-Employed",
       job_title: "Freelance Full-Stack Developer",
-      duration: "Jan 2022 - Dec 2024",
+      duration: "Dec 2024 - Aug 2026",
       location: "Remote",
       descriptions: [
         "Built custom web apps and e-commerce platforms using Tailwind CSS, PHP, React, and MySQL.",
@@ -64,25 +63,14 @@ const initialDefaultData = {
       sort_order: 3,
     },
     {
-      company: "UIU Robotics Club",
-      job_title: "Vice President",
-      duration: "Jan 2024 - Dec 2024",
+      company: "Crossroads Initiative",
+      job_title: "Technical Support",
+      duration: "Nov 2020 - Jun 2022",
       location: "Dhaka, Bangladesh",
       descriptions: [
-        "Coordinated project teams across software, electronics, and mechanical divisions.",
-        "Organized high-impact workshops on ROS, Computer Vision, and Microcontrollers.",
+        "Directed the development of community-focused web and mobile applications while managing and delivering IT solutions for internal operations and students",
       ],
       sort_order: 4,
-    },
-    {
-      company: "UIU Robotics Club",
-      job_title: "Executive Member",
-      duration: "Jan 2023 - Dec 2023",
-      location: "Dhaka, Bangladesh",
-      descriptions: [
-        "Contributed to the hardware and software development of autonomous rovers and drones.",
-      ],
-      sort_order: 5,
     },
   ],
   timeline: [
@@ -165,15 +153,55 @@ const initialDefaultData = {
   },
 };
 
+const CACHE_KEY = "portfolio_cache_v1";
+
+// Last good API response, so returning visitors see real content instantly
+// while the (sometimes sleeping) Render backend wakes up.
+const readCache = () => {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+};
+
+const writeCache = (data) => {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+  } catch (e) {
+    // Storage full or blocked (private mode): the cache is only a nicety
+  }
+};
+
+const mergeWithDefaults = (data, prev) => ({
+  ...prev,
+  siteProfile: data.siteProfile || prev.siteProfile,
+  about: data.about || prev.about,
+  projects:
+    data.projects && Object.keys(data.projects).length > 0 ? data.projects : prev.projects,
+  experiences:
+    data.experiences && data.experiences.length > 0 ? data.experiences : prev.experiences,
+  timeline: data.timeline && data.timeline.length > 0 ? data.timeline : prev.timeline,
+  techStack: data.techStack && data.techStack.length > 0 ? data.techStack : prev.techStack,
+  settings: data.settings || prev.settings,
+});
+
 const PortfolioContext = createContext({
   portfolio: initialDefaultData,
   loading: true,
+  // "default" (built-in copy), "cache" (last visit) or "live" (fresh from the API)
+  dataSource: "default",
   isBackendOnline: false,
   refreshPortfolio: () => {},
 });
 
 export const PortfolioProvider = ({ children }) => {
-  const [portfolio, setPortfolio] = useState(initialDefaultData);
+  const [cached] = useState(readCache);
+  const [portfolio, setPortfolio] = useState(() =>
+    cached ? mergeWithDefaults(cached, initialDefaultData) : initialDefaultData
+  );
+  const [dataSource, setDataSource] = useState(cached ? "cache" : "default");
   const [loading, setLoading] = useState(true);
   const [isBackendOnline, setIsBackendOnline] = useState(false);
 
@@ -181,28 +209,9 @@ export const PortfolioProvider = ({ children }) => {
     try {
       const res = await api.getPortfolio();
       if (res && res.success && res.data) {
-        setPortfolio((prev) => ({
-          ...prev,
-          siteProfile: res.data.siteProfile || prev.siteProfile,
-          about: res.data.about || prev.about,
-          projects:
-            res.data.projects && Object.keys(res.data.projects).length > 0
-              ? res.data.projects
-              : prev.projects,
-          experiences:
-            res.data.experiences && res.data.experiences.length > 0
-              ? res.data.experiences
-              : prev.experiences,
-          timeline:
-            res.data.timeline && res.data.timeline.length > 0
-              ? res.data.timeline
-              : prev.timeline,
-          techStack:
-            res.data.techStack && res.data.techStack.length > 0
-              ? res.data.techStack
-              : prev.techStack,
-          settings: res.data.settings || prev.settings,
-        }));
+        setPortfolio((prev) => mergeWithDefaults(res.data, prev));
+        writeCache(res.data);
+        setDataSource("live");
         setIsBackendOnline(true);
       }
     } catch (err) {
@@ -222,6 +231,7 @@ export const PortfolioProvider = ({ children }) => {
       value={{
         portfolio,
         loading,
+        dataSource,
         isBackendOnline,
         refreshPortfolio: fetchPortfolioData,
       }}
