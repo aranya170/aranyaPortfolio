@@ -4,7 +4,7 @@ import "./styles/Admin.css";
 import { VscLock, VscKey, VscAccount, VscArrowLeft } from "react-icons/vsc";
 
 export default function AdminLogin({ onLoginSuccess, onBackToSite }) {
-  const [username, setUsername] = useState("AKD");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isRegisterMode, setIsRegisterMode] = useState(false);
   const [email, setEmail] = useState("");

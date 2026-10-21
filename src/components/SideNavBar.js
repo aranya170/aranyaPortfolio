@@ -2,9 +2,12 @@ import React, { useRef, useEffect } from "react";
 import Icon from "./Icons";
 import "../styles/SideNavBar.css";
 import { gsap } from "gsap";
-import { SiOrcid } from "react-icons/si";
+import { FaOrcid } from "react-icons/fa";
+import { usePortfolio } from "../context/PortfolioContext";
 
 export default function SideNavBar({ showStars, setShowStars }) {
+  const { portfolio } = usePortfolio();
+  const socials = portfolio.settings?.socials || {};
   const sideNavRef = useRef(null);
   const iconsRef = useRef([]);
 
@@ -42,7 +45,7 @@ export default function SideNavBar({ showStars, setShowStars }) {
   return (
     <div className="side-navbar" ref={sideNavRef}>
       <a
-        href="https://github.com/aranya170"
+        href={socials.github || "https://github.com/aranya170"}
         title="GitHub"
         target="_blank"
         rel="noopener noreferrer"
@@ -51,7 +54,7 @@ export default function SideNavBar({ showStars, setShowStars }) {
         <Icon name="GitHub" className="sidenav-icon" />
       </a>
       <a
-        href="https://www.linkedin.com/in/aranyakishor01/"
+        href={socials.linkedin || "https://www.linkedin.com/in/aranya170"}
         title="LinkedIn"
         target="_blank"
         rel="noopener noreferrer"
@@ -66,27 +69,29 @@ export default function SideNavBar({ showStars, setShowStars }) {
         rel="noopener noreferrer"
         ref={addToRefs}
       >
-        <SiOrcid className="sidenav-icon" />
+        <FaOrcid className="sidenav-icon" />
       </a>
       <a
-        href="mailto:aranya.akd@gmail.com"
+        href={`mailto:${socials.email || "aranya.akd@gmail.com"}`}
         title="Email"
-        target="_blank"
-        rel="noopener noreferrer"
         ref={addToRefs}
       >
         <Icon name="Email" className="sidenav-icon" />
       </a>
-      <div className="side-navbar-divider" ref={addToRefs}></div>
-      <button
-        className={`star-btn${showStars ? " star-active" : ""}`}
-        onClick={() => setShowStars((prev) => !prev)}
-        title={showStars ? "Disable Background" : "Enable Background"}
-        type="button"
-        ref={addToRefs}
-      >
-        <Icon name="Star" />
-      </button>
+      {typeof setShowStars === "function" && (
+        <>
+          <div className="side-navbar-divider" ref={addToRefs}></div>
+          <button
+            className={`star-btn${showStars ? " star-active" : ""}`}
+            onClick={() => setShowStars((prev) => !prev)}
+            title={showStars ? "Disable Background" : "Enable Background"}
+            type="button"
+            ref={addToRefs}
+          >
+            <Icon name="Star" />
+          </button>
+        </>
+      )}
     </div>
   );
 }

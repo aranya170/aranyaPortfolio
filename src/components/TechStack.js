@@ -1,45 +1,49 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import * as SiIcons from "react-icons/si";
 import "../styles/TechStack.css";
 import { usePortfolio } from "../context/PortfolioContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const defaultTechTools = [
-  { name: "MySQL", icon_name: "SiMysql", color: "#00758F" },
-  { name: "Java", icon_name: "SiOpenjdk", color: "#007396" },
-  { name: "Python", icon_name: "SiPython", color: "#FFD43B" },
-  { name: "Pandas", icon_name: "SiPandas", color: "#150458" },
-  { name: "NumPy", icon_name: "SiNumpy", color: "#013243" },
-  { name: "Git", icon_name: "SiGit", color: "#F1502F" },
-  { name: "Jupyter", icon_name: "SiJupyter", color: "#F37626" },
-  { name: "Figma", icon_name: "SiFigma", color: "#F24E1E" },
-  { name: "Illustrator", icon_name: "SiAdobeillustrator", color: "#FF9A00" },
-  { name: "Photoshop", icon_name: "SiAdobephotoshop", color: "#31A8FF" },
-  { name: "Github", icon_name: "SiGithub", color: "#696868ff" },
-  { name: "Html5", icon_name: "SiHtml5", color: "#E34F26" },
-  { name: "Css3", icon_name: "SiCss3", color: "#1572B6" },
-  { name: "Tailwindcss", icon_name: "SiTailwindcss", color: "#06B6D4" },
-  { name: "Javascript", icon_name: "SiJavascript", color: "#F7DF1E" },
-  { name: "Jira", icon_name: "SiJira", color: "#2684FF" },
-  { name: "Tinkercad", icon_name: "SiTinkercad", color: "#0066B6" },
-  { name: "C++", icon_name: "SiCplusplus", color: "#00599C" },
-  { name: "C", icon_name: "SiC", color: "#A8B9CC" },
-  { name: "React", icon_name: "SiReact", color: "#61DAFB" },
-  { name: "Next.js", icon_name: "SiNextdotjs", color: "#686767ff" },
-  { name: "Flutter", icon_name: "SiFlutter", color: "#02569B" },
-];
-
 export default function TechStack() {
   const { portfolio } = usePortfolio();
-  const techStackData =
-    portfolio && Array.isArray(portfolio.techStack) && portfolio.techStack.length > 0
-      ? portfolio.techStack
-      : defaultTechTools;
+  const techStackData = portfolio.techStack;
 
   const techStackRef = useRef(null);
+  const [siIcons, setSiIcons] = useState(null);
+
+  // react-icons/si holds thousands of icons; load it as a separate chunk
+  // instead of shipping it in the main bundle, and only once the section is near the viewport.
+  useEffect(() => {
+    let cancelled = false;
+    const load = () =>
+      import("react-icons/si").then((mod) => {
+        if (!cancelled) setSiIcons(mod);
+      });
+
+    if (!("IntersectionObserver" in window) || !techStackRef.current) {
+      load();
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          observer.disconnect();
+          load();
+        }
+      },
+      { rootMargin: "800px 0px" }
+    );
+    observer.observe(techStackRef.current);
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -112,11 +116,9 @@ export default function TechStack() {
   };
 
   const renderIcon = (iconName) => {
-    if (iconName && SiIcons[iconName]) {
-      const IconComp = SiIcons[iconName];
-      return <IconComp />;
-    }
-    return <SiIcons.SiCodefactor />;
+    if (!siIcons) return null;
+    const IconComp = (iconName && siIcons[iconName]) || siIcons.SiCodefactor;
+    return <IconComp />;
   };
 
   return (

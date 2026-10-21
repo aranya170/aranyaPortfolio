@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../styles/Credits.css";
@@ -67,14 +66,6 @@ const Credits = () => {
           >
             LinkedIn
           </a>
-          <span className="footer-separator"> | </span>
-          <Link
-            to="/admin"
-            title="Admin Dashboard Portal"
-            style={{ color: "#64d98a", textDecoration: "none", opacity: 0.8 }}
-          >
-            Admin Panel
-          </Link>
         </div>
         <div className="footer-copyright">{copyrightText}</div>
       </div>

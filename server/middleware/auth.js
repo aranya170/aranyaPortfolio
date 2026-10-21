@@ -2,7 +2,12 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
-const JWT_SECRET = process.env.JWT_SECRET || "aranya_super_secret_jwt_key_2026";
+if (!process.env.JWT_SECRET && process.env.NODE_ENV === "production") {
+  throw new Error("JWT_SECRET must be set in production");
+}
+
+// The fallback only exists so local development works without a .env file
+const JWT_SECRET = process.env.JWT_SECRET || "local-dev-only-jwt-secret";
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];

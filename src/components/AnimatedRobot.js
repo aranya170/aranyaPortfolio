@@ -8,11 +8,11 @@
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. //
 
-import React, { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
+import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import "../styles/AnimatedRobot.css";
-import { MorphSVGPlugin, DrawSVGPlugin } from "gsap/all";
+import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 
 export default function AnimatedRobot() {
   const svgRef = useRef();
@@ -20,6 +20,12 @@ export default function AnimatedRobot() {
 
   useEffect(() => {
     gsap.registerPlugin(MorphSVGPlugin, DrawSVGPlugin);
+    let handleMouseMove;
+    let handleRobotClick;
+    let robotElement;
+
+    // Scope every tween to this component so they can all be killed on unmount
+    const ctx = gsap.context(() => {
     
     let isLeft = false;
 
@@ -467,7 +473,7 @@ export default function AnimatedRobot() {
     let mouseX = 0;
     let mouseY = 0;
 
-    window.addEventListener("mousemove", (e) => {
+    handleMouseMove = (e) => {
       mouseX = (e.clientX / sizes.width) * 2 - 1;
       mouseY = -(e.clientY / sizes.height) * 2 + 1;
 
@@ -480,12 +486,12 @@ export default function AnimatedRobot() {
         x: -mouseX * 20,
         y: mouseY * 10
       });
-    });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
 
     // Robot click interaction
-    const robotElement = document.getElementById("robot");
-    if (robotElement) {
-      robotElement.addEventListener("click", () => {
+    robotElement = document.getElementById("robot");
+    handleRobotClick = () => {
         robotTl.pause();
 
         const helloTl = gsap
@@ -504,12 +510,14 @@ export default function AnimatedRobot() {
           });
 
         helloTl.restart();
-      });
-    }
+    };
+    robotElement?.addEventListener("click", handleRobotClick);
+    }, svgRef);
 
     return () => {
-      window.removeEventListener("mousemove", () => {});
-      document.getElementById("robot")?.removeEventListener("click", () => {});
+      window.removeEventListener("mousemove", handleMouseMove);
+      robotElement?.removeEventListener("click", handleRobotClick);
+      ctx.revert(); // kills every timeline created above
     };
   }, []);
 

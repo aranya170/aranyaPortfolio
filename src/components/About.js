@@ -7,20 +7,19 @@ import { usePortfolio } from "../context/PortfolioContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Paragraphs come from the admin panel. Escape everything, then re-allow only
+// the highlight span, so no other HTML (or script) can reach the page.
+const toSafeHtml = (text) =>
+  String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/&lt;span class=(["'])highlight\1&gt;/g, '<span class="highlight">')
+    .replace(/&lt;\/span&gt;/g, "</span>");
+
 const About = () => {
   const { portfolio } = usePortfolio();
-  const aboutData = portfolio?.about || {
-    title: "About Me",
-    profile_image: "/assets/Aranya Kishor Das.png",
-    paragraphs: [
-      `Hi, my name is Aranya and I enjoy solving puzzles, building things, and exploring technology. My journey began in 2015 when I became fascinated by <span class="highlight">remote-controlled cars</span> and microcontrollers like <span class="highlight">Arduino and ESP</span>. That childhood curiosity sparked a lifelong passion for electronics and robotics.`,
-      `From 2015 to 2019, I explored the vast fields of computer science, graphics design, and software engineering. During the pandemic, I deep-dived into <span class="highlight">Web Development and Figma Design</span>. My academic journey eventually led me to United International University, after receiving 19 admission offers from universities in the <span class="highlight">USA and Switzerland</span>.`,
-      `In 2024, I pivoted my focus toward <span class="highlight">Deep Learning and Artificial Intelligence</span>. Today, I serve as an Undergraduate Research Assistant at UIU, a Teaching Assistant for IoT and Robotics, and the <span class="highlight">President of the UIU Robotics Club</span>, where I continue to push the boundaries of intelligent systems.`,
-      `Outside of work, I love playing video games. I'm also into aesthetic interior designs and I love hoarding cool tech products.`
-    ],
-    timeline_link_text: "View my timeline to learn more about my unique journey",
-    contact_button_text: "Get in Touch"
-  };
+  const aboutData = portfolio.about;
 
   const aboutRef = useRef(null);
 
@@ -86,16 +85,14 @@ const About = () => {
               {paragraphs.map((para, idx) => (
                 <p
                   key={idx}
-                  dangerouslySetInnerHTML={{ __html: para }}
+                  dangerouslySetInnerHTML={{ __html: toSafeHtml(para) }}
                 />
               ))}
             </div>
 
             <p className="about-timeline-link">
               <a href="#timeline">
-                <span role="img" aria-label="timeline"></span>
-                {aboutData.timeline_link_text || "View my timeline to learn more about my unique journey"}{" "}
-                <span className="about-timeline-highlight">unique journey</span>{" "}
+                {aboutData.timeline_link_text || "View my timeline to learn more about my journey"}{" "}
                 &rarr;
               </a>
             </p>

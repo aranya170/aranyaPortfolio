@@ -17,103 +17,104 @@ export default function Contact() {
   const successRef = useRef(null);
   const contactSectionRef = useRef(null);
   const { portfolio } = usePortfolio();
-  const yourEmail = portfolio?.settings?.socials?.email || "aranya.akd@gmail.com";
+  const yourEmail =
+    portfolio?.settings?.socials?.email || "aranya.akd@gmail.com";
 
   useEffect(() => {
-    gsap.set(".contact-container", {
-      width: "100%",
-      maxWidth: "600px",
-      height: "auto",
-      margin: "0 auto",
-    });
+    const ctx = gsap.context(() => {
+      gsap.set(".contact-container", {
+        width: "100%",
+        maxWidth: "600px",
+        height: "auto",
+        margin: "0 auto",
+      });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#contact",
-        start: "top 75%",
-        toggleActions: "play none none reverse",
-      },
-    });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#contact",
+          start: "top 75%",
+          toggleActions: "play none none reverse",
+        },
+      });
 
-    tl.fromTo(
-      "#contact .section-title",
-      {
-        y: 30,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.6,
-        ease: "power2.out",
-      }
-    );
+      tl.fromTo(
+        "#contact .section-title",
+        {
+          y: 30,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out",
+        },
+      );
 
-    tl.fromTo(
-      ".contact-intro",
-      {
-        y: 30,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.6,
-        ease: "power2.out",
-      },
-      "-=0.3"
-    );
+      tl.fromTo(
+        ".contact-intro",
+        {
+          y: 30,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out",
+        },
+        "-=0.3",
+      );
 
-    tl.fromTo(
-      ".contact-container",
-      {
-        y: 50,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "power3.out",
-      },
-      "-=0.3"
-    );
+      tl.fromTo(
+        ".contact-container",
+        {
+          y: 50,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+        },
+        "-=0.3",
+      );
 
-    tl.fromTo(
-      ".form-group",
-      {
-        y: 20,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        stagger: 0.15,
-        duration: 0.5,
-        ease: "power2.out",
-      },
-      "-=0.4"
-    );
+      tl.fromTo(
+        ".form-group",
+        {
+          y: 20,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.15,
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        "-=0.4",
+      );
 
-    tl.fromTo(
-      [".contact-actions", ".contact-info"],
-      {
-        y: 15,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        stagger: 0.1,
-        duration: 0.5,
-        ease: "power2.out",
-      },
-      "-=0.2"
-    );
+      tl.fromTo(
+        [".contact-actions", ".contact-info"],
+        {
+          y: 15,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.1,
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        "-=0.2",
+      );
+    }, contactSectionRef);
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => ctx.revert();
   }, []);
 
   const [status, setStatus] = useState("idle"); // idle, sending, success, error
@@ -143,7 +144,7 @@ export default function Contact() {
           gsap.fromTo(
             successRef.current,
             { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+            { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
           );
         },
       });
@@ -151,19 +152,22 @@ export default function Contact() {
     } catch (apiError) {
       console.warn("Backend submit error, trying fallback:", apiError.message);
       try {
-        await fetch("https://script.google.com/macros/s/AKfycbziN-8CZYf_SLoMykwZLQArQzT_vea5BHcKcxH_RQZ5whzCXoeaYuwZbXhw2ablsjhI/exec", {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json",
+        await fetch(
+          "https://script.google.com/macros/s/AKfycbziN-8CZYf_SLoMykwZLQArQzT_vea5BHcKcxH_RQZ5whzCXoeaYuwZbXhw2ablsjhI/exec",
+          {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: name,
+              email: email,
+              message: message,
+              date: new Date().toLocaleString(),
+            }),
           },
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            message: message,
-            date: new Date().toLocaleString(),
-          }),
-        });
+        );
 
         setStatus("success");
         gsap.to(formRef.current, {
@@ -178,7 +182,7 @@ export default function Contact() {
             gsap.fromTo(
               successRef.current,
               { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+              { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
             );
           },
         });
@@ -209,7 +213,7 @@ export default function Contact() {
         gsap.fromTo(
           formRef.current,
           { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
         );
 
         setIsSubmitted(false);
@@ -224,8 +228,8 @@ export default function Contact() {
       </div>
       <div className="contact-intro">
         <p>
-          I’m currently exploring research and leadership opportunities in AI and
-          Robotics. I'm always open to connecting with like-minded
+          I’m currently exploring research and leadership opportunities in AI
+          and Robotics. I'm always open to connecting with like-minded
           professionals, researchers, or collaborators. If you have a project or
           role in mind, I’d love to hear from you!
         </p>

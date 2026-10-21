@@ -5,7 +5,8 @@ A sleek, high-performance personal website designed with a focus on user experie
 ### 🛠️ Tech Stack
 - **Frontend:** React.js
 - **Styling:** CSS3
-- **Hosting & Backend:** Firebase
+- **Hosting:** Firebase (frontend), Render (Express API)
+- **Database:** PostgreSQL (Neon)
 - **Speed:** Optimized for near-instant load times
 
 ### 🚀 Key Features
@@ -14,4 +15,18 @@ A sleek, high-performance personal website designed with a focus on user experie
 - **Responsive:** Fully optimized for all screen sizes.
 
 ---
+## Local development
+
+```bash
+npm install
+npm start            # frontend on http://localhost:3000
+cd server && npm install && npm run dev   # API on http://localhost:5000
+```
+
+Copy `server/.env.example` to `server/.env` and fill in your own values. Never commit `.env` files.
+
+## Deploy
+
+Pushing to `main` deploys the frontend to Firebase Hosting through GitHub Actions. The API runs on Render.
+
 [Visit my site](https://aranyaportfolio.web.app/)

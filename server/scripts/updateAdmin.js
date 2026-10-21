@@ -8,9 +8,14 @@ async function updateAdmin() {
     process.exit(1);
   }
 
-  const username = "AKD";
-  const email = "aranya.akd@gmail.com";
-  const newPassword = "20010816Akd";
+  // Usage: ADMIN_USERNAME=... ADMIN_EMAIL=... ADMIN_PASSWORD=... npm run update-admin
+  const username = process.env.ADMIN_USERNAME;
+  const email = process.env.ADMIN_EMAIL;
+  const newPassword = process.env.ADMIN_PASSWORD;
+  if (!username || !email || !newPassword || newPassword.length < 8) {
+    console.error("Set ADMIN_USERNAME, ADMIN_EMAIL and ADMIN_PASSWORD (8+ chars) before running this script.");
+    process.exit(1);
+  }
   const passwordHash = await bcrypt.hash(newPassword, 10);
 
   // Update existing admin or insert new

@@ -1,8 +1,7 @@
 {
   "admin": {
     "username": "AKD",
-    "email": "aranya.akd@gmail.com",
-    "password": "20010816Akd"
+    "email": "aranya.akd@gmail.com"
   },
   "siteProfile": {
     "greeting": "Hi there! I'm ",
@@ -34,7 +33,12 @@
       "image": "/assets/uiu_robotics.png",
       "github": "https://github.com/aranya170/UIURC.git",
       "website": "https://robotics.uiu.ac.bd/",
-      "tags": ["Tailwind CSS", "Laravel", "UI/UX Design", "PHP"],
+      "tags": [
+        "Tailwind CSS",
+        "Laravel",
+        "UI/UX Design",
+        "PHP"
+      ],
       "sort_order": 1,
       "files": [
         {
@@ -62,7 +66,11 @@
       "image": "/assets/daccadelights.png",
       "github": "https://github.com/aranya170/DaccaDelights.git",
       "website": "https://daccadelights.com/",
-      "tags": ["MySQL", "Tailwind CSS", "PHP"],
+      "tags": [
+        "MySQL",
+        "Tailwind CSS",
+        "PHP"
+      ],
       "sort_order": 2,
       "files": [
         {
@@ -89,7 +97,13 @@
       "name": "DirectEdge",
       "image": "/assets/directedge.png",
       "github": "https://github.com/aranya170/DirectEdge",
-      "tags": ["Computer Vision", "Deep Learning", "Python", "Tailwind CSS", "React"],
+      "tags": [
+        "Computer Vision",
+        "Deep Learning",
+        "Python",
+        "Tailwind CSS",
+        "React"
+      ],
       "sort_order": 3,
       "files": [
         {
@@ -108,7 +122,12 @@
       "name": "Kairos",
       "image": "/assets/kairos.png",
       "github": "https://github.com/aranya170/Kairos",
-      "tags": ["MySQL", "Bootstrap", "PHP", "JavaScript"],
+      "tags": [
+        "MySQL",
+        "Bootstrap",
+        "PHP",
+        "JavaScript"
+      ],
       "sort_order": 4,
       "files": [
         {
@@ -127,7 +146,11 @@
       "name": "Peer Pie",
       "image": "/assets/peerpie.png",
       "github": "https://github.com/aranya170/Peer_Pie/tree/main",
-      "tags": ["JAVA", "MySQL", "CSS"],
+      "tags": [
+        "JAVA",
+        "MySQL",
+        "CSS"
+      ],
       "sort_order": 5,
       "files": [
         {
@@ -146,7 +169,12 @@
       "name": "RoboNeT - Robotics, Networking, IoT & Data Communication Repository",
       "image": "/assets/research.png",
       "github": "https://github.com/FahimHafiz/RoboNeT-Robotics-Network-IoT-Repository.git",
-      "tags": ["Autonomus", "Robotics", "IoT", "Data Communication"],
+      "tags": [
+        "Autonomus",
+        "Robotics",
+        "IoT",
+        "Data Communication"
+      ],
       "sort_order": 1,
       "files": [
         {
@@ -172,7 +200,11 @@
       "category": "Research",
       "name": "Identification and Classification of the Dark Triad Personality Traits Using Machine Learning",
       "image": "/assets/DarkTriads.png",
-      "tags": ["Pandas", "Numpy", "Matplotlib"],
+      "tags": [
+        "Pandas",
+        "Numpy",
+        "Matplotlib"
+      ],
       "sort_order": 2,
       "files": [
         {
@@ -198,7 +230,11 @@
       "category": "Research",
       "name": "Adaptive Weighted Ensemble Learning for Mixed Waste Classification",
       "image": "/assets/research2.jpg",
-      "tags": ["Pandas", "Latex", "Matplotlib"],
+      "tags": [
+        "Pandas",
+        "Latex",
+        "Matplotlib"
+      ],
       "sort_order": 3,
       "files": [
         {
@@ -216,7 +252,12 @@
       "category": "Hardware",
       "name": "Delta Arm",
       "image": "/assets/Hardware5.jpg",
-      "tags": ["Arduino", "Inverse Kinematics", "Parallel Robotics", "3D Printing"],
+      "tags": [
+        "Arduino",
+        "Inverse Kinematics",
+        "Parallel Robotics",
+        "3D Printing"
+      ],
       "sort_order": 1,
       "files": [
         {
@@ -234,7 +275,11 @@
       "category": "Hardware",
       "name": "Scara Arm",
       "image": "/assets/Hardware4.jpeg",
-      "tags": ["Arduino Nano", "3D Design", "Kinematics"],
+      "tags": [
+        "Arduino Nano",
+        "3D Design",
+        "Kinematics"
+      ],
       "sort_order": 2,
       "files": [
         {
@@ -252,7 +297,11 @@
       "category": "Hardware",
       "name": "4 Wings Drone",
       "image": "/assets/Hardware3.jpg",
-      "tags": ["Arduino Nano", "3D Design", "Brushless Motor"],
+      "tags": [
+        "Arduino Nano",
+        "3D Design",
+        "Brushless Motor"
+      ],
       "sort_order": 3,
       "files": [
         {
@@ -271,7 +320,12 @@
       "name": "IOT Based Smart Bus Tracking System",
       "image": "/assets/Hardware1.png",
       "github": "https://github.com/aranya170/Shuttle-Bus-Tracking-System",
-      "tags": ["Arduino", "ESP 32", "LDR", "GPS Module"],
+      "tags": [
+        "Arduino",
+        "ESP 32",
+        "LDR",
+        "GPS Module"
+      ],
       "sort_order": 4,
       "files": [
         {
@@ -289,7 +343,12 @@
       "category": "Hardware",
       "name": "Smart Voting Machine",
       "image": "/assets/Hardware2.jpg",
-      "tags": ["Arduino", "i2C", "Buzzer", "Laser"],
+      "tags": [
+        "Arduino",
+        "i2C",
+        "Buzzer",
+        "Laser"
+      ],
       "sort_order": 5,
       "files": [
         {
@@ -297,228 +356,6 @@
           "name": "README.md",
           "type": "info",
           "content": "Designed and fabricated an IoT-enabled smart voting machine ensuring biometric authentication, tamper-evident vote logging, and real-time tabulation using embedded microcontrollers.",
-          "language": "markdown",
-          "sort_order": 1
-        }
-      ]
-    },
-    {
-      "id": 14,
-      "category": "SQL",
-      "name": "Cyclistic Bike Share Analysis",
-      "image": "/assets/cyclistic.png",
-      "medium": "https://medium.com/@rafsanahmed2828/from-data-to-insights-googles-cyclistic-case-study-04fb362c2d0d",
-      "github": "https://github.com/rafsanahmed28/Cyclistic-Case-Study",
-      "dataset": "https://divvy-tripdata.s3.amazonaws.com/index.html",
-      "tags": ["MySQL", "Excel", "Tableau", "Data Visualization", "Data Analysis"],
-      "sort_order": 1,
-      "files": [
-        {
-          "id": 18,
-          "name": "README.md",
-          "type": "info",
-          "content": "Cyclistic is a fictional bike-share company in Chicago. The goal of this project is to analyze the bike usage data to understand how different types of users (casual vs. annual members) use the service and to provide insights for marketing strategies. Learn more about my approach, analysis, and findings in the Medium article linked below.",
-          "language": "markdown",
-          "sort_order": 1
-        },
-        {
-          "id": 19,
-          "name": "cleaning.sql",
-          "type": "code",
-          "content": "-- Cyclistic Data Cleaning\nSELECT * FROM cyclistic.cyclisticmain;\nDELETE FROM cyclistic.cyclisticmain WHERE length(ride_id) != 16;\nCREATE TABLE cyclisticclean AS SELECT * FROM cyclisticmain;",
-          "language": "sql",
-          "sort_order": 2
-        },
-        {
-          "id": 20,
-          "name": "querying.sql",
-          "type": "code",
-          "content": "-- Cyclistic Analysis & Exploration\nSELECT member_casual, COUNT(*) as total_rides, AVG(TIMESTAMPDIFF(MINUTE, started_at, ended_at)) as avg_duration_mins\nFROM cyclisticclean\nGROUP BY member_casual;",
-          "language": "sql",
-          "sort_order": 3
-        },
-        {
-          "id": 21,
-          "name": "viz_query.sql",
-          "type": "code",
-          "content": "-- Cyclistic Visualization Queries\nSELECT start_station_name, COUNT(*) as ride_count, member_casual\nFROM cyclisticclean\nWHERE start_station_name IS NOT NULL\nGROUP BY start_station_name, member_casual\nORDER BY ride_count DESC;",
-          "language": "sql",
-          "sort_order": 4
-        }
-      ]
-    },
-    {
-      "id": 15,
-      "category": "SQL",
-      "name": "Data Cleaning - NashVille Housing Data",
-      "image": "/assets/nashville.png",
-      "github": "https://github.com/rafsanahmed28/Data-Cleaning-MySQL",
-      "tags": ["MySQL", "Data Cleaning", "Data Transformation"],
-      "dataset": "http://kaggle.com/datasets/tmthyjames/nashville-housing-data",
-      "sort_order": 2,
-      "files": [
-        {
-          "id": 22,
-          "name": "README.md",
-          "type": "info",
-          "content": "Cleaned and transformed Nashville housing data for analysis, focusing on data integrity and consistency. This project's goal was to go through the important steps of data cleaning and transformation, including removing duplicates, handling missing values, and ensuring data types are correct.",
-          "language": "markdown",
-          "sort_order": 1
-        },
-        {
-          "id": 23,
-          "name": "nasvhille.sql",
-          "type": "code",
-          "content": "-- Nashville Housing Data Cleaning\nSELECT * FROM nashville.nashdata;\nUPDATE nashdata SET SaleDate = STR_TO_DATE(SaleDate, '%M %e, %Y');\nALTER TABLE nashdata ADD COLUMN PropertyCity CHAR(255);",
-          "language": "sql",
-          "sort_order": 2
-        }
-      ]
-    },
-    {
-      "id": 16,
-      "category": "SQL",
-      "name": "Covid-19 Exploratory Data Analysis",
-      "image": "/assets/covid19.png",
-      "github": "https://github.com/rafsanahmed28/Covid-Data-Exploration-Project",
-      "dataset": "https://ourworldindata.org/covid-deaths",
-      "tags": ["MySQL", "Excel", "Tableau", "Data Visualization", "Data Analysis"],
-      "sort_order": 3,
-      "files": [
-        {
-          "id": 24,
-          "name": "README.md",
-          "type": "info",
-          "content": "Performed exploratory data analysis on Covid-19 data to find the damage caused by the pandemic in different countries. The project focuses on data transformation, exploratory data analysis and visualization to provide insights into the impact of Covid-19 globally.",
-          "language": "markdown",
-          "sort_order": 1
-        },
-        {
-          "id": 25,
-          "name": "covid19.sql",
-          "type": "code",
-          "content": "-- Covid-19 Exploration\nSELECT Location, Date, total_cases, total_deaths, (total_deaths/total_cases)*100 AS infection_death_percentage\nFROM covidproject.coviddeaths\nWHERE Location = 'Canada'\nORDER BY 1,2;",
-          "language": "sql",
-          "sort_order": 2
-        }
-      ]
-    },
-    {
-      "id": 17,
-      "category": "Python",
-      "name": "Movie Correlation Analysis",
-      "image": "/assets/correlation.png",
-      "github": "https://github.com/rafsanahmed28/Movie-Correlation---Pandas-NumPy-SNS",
-      "tags": ["Pandas", "Numpy", "Seaborn", "Matplotlib"],
-      "dataset": "https://www.kaggle.com/datasets/danielgrijalvas/movies",
-      "sort_order": 1,
-      "files": [
-        {
-          "id": 26,
-          "name": "README.md",
-          "type": "info",
-          "content": "Analyzed movie data to find correlations between different features such as budget, revenue, and ratings using Python libraries like Pandas, NumPy, and Seaborn. The project includes data cleaning, transformation, and visualization to uncover insights about the movie industry.",
-          "language": "markdown",
-          "sort_order": 1
-        },
-        {
-          "id": 27,
-          "name": "correlation.ipynb",
-          "type": "notebook",
-          "content": "https://nbviewer.org/github/rafsanahmed28/Movie-Correlation---Pandas-NumPy-SNS/blob/main/Finding%20Movie%20Correlation.ipynb?flush_cache=true",
-          "language": "python",
-          "sort_order": 2
-        }
-      ]
-    },
-    {
-      "id": 18,
-      "category": "Python",
-      "name": "Automating Crypto Data using CoinGecko API",
-      "image": "/assets/crypto.png",
-      "github": "https://github.com/rafsanahmed28/Automating-Crypto-Data-using-CoinGecko-API",
-      "tags": ["Pandas", "Seaborn", "Matplotlib"],
-      "sort_order": 2,
-      "files": [
-        {
-          "id": 28,
-          "name": "README.md",
-          "type": "info",
-          "content": "Automated the retrieval of cryptocurrency data using the CoinGecko API and performed analysis using Python libraries pandas, seaborn and matplotlib. This project is meant to showcase the data automation and collection process, which can be used for further analysis or visualization.",
-          "language": "markdown",
-          "sort_order": 1
-        },
-        {
-          "id": 29,
-          "name": "crypto.ipynb",
-          "type": "notebook",
-          "content": "https://nbviewer.org/github/rafsanahmed28/Automating-Crypto-Data-using-CoinGecko-API/blob/main/Automating%20Crypto%20-%20CoinGecko%20API.ipynb?flush_cache=true",
-          "language": "python",
-          "sort_order": 2
-        }
-      ]
-    },
-    {
-      "id": 19,
-      "category": "Python",
-      "name": "Amazon Web Scraping",
-      "image": "/assets/amazon.png",
-      "github": "https://github.com/rafsanahmed28/Amazon-Web-Scraping",
-      "tags": ["BeautifulSoup", "Pandas", "Web Scraping", "Email Automation"],
-      "sort_order": 3,
-      "files": [
-        {
-          "id": 30,
-          "name": "README.md",
-          "type": "info",
-          "content": "Scraped product data from Amazon using BeautifulSoup and Pandas. The data is stored in a CSV file and is used for tracking price changes over time. This project also showcases how you can email yourself whenever a product's price drops below a certain threshold.",
-          "language": "markdown",
-          "sort_order": 1
-        },
-        {
-          "id": 31,
-          "name": "amazon.ipynb",
-          "type": "notebook",
-          "content": "https://nbviewer.org/github/rafsanahmed28/Amazon-Web-Scraping/blob/main/Amazon%20Web%20Scraping%20-%20Data%20Project.ipynb?flush_cache=true",
-          "language": "python",
-          "sort_order": 2
-        }
-      ]
-    },
-    {
-      "id": 20,
-      "category": "Tableau",
-      "name": "Cyclistic Case Study Visualization",
-      "image": "/assets/kairos.png",
-      "medium": "https://medium.com/@rafsanahmed2828/from-data-to-insights-googles-cyclistic-case-study-04fb362c2d0d",
-      "tableau": "https://public.tableau.com/app/profile/rafsan.ahmed8668/viz/GoogleCyclisticCaseStudyVisualization/DashboardMain",
-      "tags": ["Tableau", "Data Visualization"],
-      "sort_order": 1,
-      "files": [
-        {
-          "id": 32,
-          "name": "README.md",
-          "type": "info",
-          "content": "Designed an interactive Tableau dashboard for the Cyclistic Case Study, visualizing the seasonal trends and usage patterns during different times as well as different routes the users take. The dashboard helps us dive deeper into how the annual users differ from casual users.",
-          "language": "markdown",
-          "sort_order": 1
-        }
-      ]
-    },
-    {
-      "id": 21,
-      "category": "Tableau",
-      "name": "Covid-19 Data Visualization Dashboard",
-      "image": "/assets/covid19viz.png",
-      "tableau": "https://public.tableau.com/app/profile/rafsan.ahmed8668/viz/CovidDataVisualizationDashboard-May2024/Dashboard1",
-      "tags": ["Tableau", "Data Visualization"],
-      "sort_order": 2,
-      "files": [
-        {
-          "id": 33,
-          "name": "README.md",
-          "type": "info",
-          "content": "Developed a Tableau dashboard to visualize Covid-19 infection data across all the countries around the world. The dashboard also gives an overview of the global death count, continental death count, and a filtered view of percentage population infected by country.",
           "language": "markdown",
           "sort_order": 1
         }
@@ -639,28 +476,174 @@
     }
   ],
   "techStack": [
-    { "id": 1, "name": "Python", "category": "Language", "color": "#3776AB", "icon_name": "SiPython", "sort_order": 1 },
-    { "id": 2, "name": "C++", "category": "Language", "color": "#00599C", "icon_name": "SiCplusplus", "sort_order": 2 },
-    { "id": 3, "name": "JavaScript", "category": "Language", "color": "#F7DF1E", "icon_name": "SiJavascript", "sort_order": 3 },
-    { "id": 4, "name": "PHP", "category": "Language", "color": "#777BB4", "icon_name": "SiPhp", "sort_order": 4 },
-    { "id": 5, "name": "React", "category": "Frontend", "color": "#61DAFB", "icon_name": "SiReact", "sort_order": 5 },
-    { "id": 6, "name": "Tailwind CSS", "category": "Frontend", "color": "#06B6D4", "icon_name": "SiTailwindcss", "sort_order": 6 },
-    { "id": 7, "name": "Node.js", "category": "Backend", "color": "#339933", "icon_name": "SiNodedotjs", "sort_order": 7 },
-    { "id": 8, "name": "PostgreSQL", "category": "Database", "color": "#4169E1", "icon_name": "SiPostgresql", "sort_order": 8 },
-    { "id": 9, "name": "MySQL", "category": "Database", "color": "#4479A1", "icon_name": "SiMysql", "sort_order": 9 },
-    { "id": 10, "name": "PyTorch", "category": "AI/ML", "color": "#EE4C2C", "icon_name": "SiPytorch", "sort_order": 10 },
-    { "id": 11, "name": "TensorFlow", "category": "AI/ML", "color": "#FF6F00", "icon_name": "SiTensorflow", "sort_order": 11 },
-    { "id": 12, "name": "OpenCV", "category": "AI/ML", "color": "#5C3EE8", "icon_name": "SiOpencv", "sort_order": 12 },
-    { "id": 13, "name": "Pandas", "category": "AI/ML", "color": "#150458", "icon_name": "SiPandas", "sort_order": 13 },
-    { "id": 14, "name": "NumPy", "category": "AI/ML", "color": "#013243", "icon_name": "SiNumpy", "sort_order": 14 },
-    { "id": 15, "name": "Scikit-Learn", "category": "AI/ML", "color": "#F7931E", "icon_name": "SiScikitlearn", "sort_order": 15 },
-    { "id": 16, "name": "ROS", "category": "Robotics", "color": "#22314E", "icon_name": "SiRos", "sort_order": 16 },
-    { "id": 17, "name": "Arduino", "category": "Robotics", "color": "#00979D", "icon_name": "SiArduino", "sort_order": 17 },
-    { "id": 18, "name": "Raspberry Pi", "category": "Robotics", "color": "#A22846", "icon_name": "SiRaspberrypi", "sort_order": 18 },
-    { "id": 19, "name": "Git", "category": "Tools", "color": "#F05032", "icon_name": "SiGit", "sort_order": 19 },
-    { "id": 20, "name": "GitHub", "category": "Tools", "color": "#181717", "icon_name": "SiGithub", "sort_order": 20 },
-    { "id": 21, "name": "Docker", "category": "Tools", "color": "#2496ED", "icon_name": "SiDocker", "sort_order": 21 },
-    { "id": 22, "name": "Tableau", "category": "Data Viz", "color": "#E97627", "icon_name": "SiTableau", "sort_order": 22 }
+    {
+      "id": 1,
+      "name": "Python",
+      "category": "Language",
+      "color": "#3776AB",
+      "icon_name": "SiPython",
+      "sort_order": 1
+    },
+    {
+      "id": 2,
+      "name": "C++",
+      "category": "Language",
+      "color": "#00599C",
+      "icon_name": "SiCplusplus",
+      "sort_order": 2
+    },
+    {
+      "id": 3,
+      "name": "JavaScript",
+      "category": "Language",
+      "color": "#F7DF1E",
+      "icon_name": "SiJavascript",
+      "sort_order": 3
+    },
+    {
+      "id": 4,
+      "name": "PHP",
+      "category": "Language",
+      "color": "#777BB4",
+      "icon_name": "SiPhp",
+      "sort_order": 4
+    },
+    {
+      "id": 5,
+      "name": "React",
+      "category": "Frontend",
+      "color": "#61DAFB",
+      "icon_name": "SiReact",
+      "sort_order": 5
+    },
+    {
+      "id": 6,
+      "name": "Tailwind CSS",
+      "category": "Frontend",
+      "color": "#06B6D4",
+      "icon_name": "SiTailwindcss",
+      "sort_order": 6
+    },
+    {
+      "id": 7,
+      "name": "Node.js",
+      "category": "Backend",
+      "color": "#339933",
+      "icon_name": "SiNodedotjs",
+      "sort_order": 7
+    },
+    {
+      "id": 8,
+      "name": "PostgreSQL",
+      "category": "Database",
+      "color": "#4169E1",
+      "icon_name": "SiPostgresql",
+      "sort_order": 8
+    },
+    {
+      "id": 9,
+      "name": "MySQL",
+      "category": "Database",
+      "color": "#4479A1",
+      "icon_name": "SiMysql",
+      "sort_order": 9
+    },
+    {
+      "id": 10,
+      "name": "PyTorch",
+      "category": "AI/ML",
+      "color": "#EE4C2C",
+      "icon_name": "SiPytorch",
+      "sort_order": 10
+    },
+    {
+      "id": 11,
+      "name": "TensorFlow",
+      "category": "AI/ML",
+      "color": "#FF6F00",
+      "icon_name": "SiTensorflow",
+      "sort_order": 11
+    },
+    {
+      "id": 12,
+      "name": "OpenCV",
+      "category": "AI/ML",
+      "color": "#5C3EE8",
+      "icon_name": "SiOpencv",
+      "sort_order": 12
+    },
+    {
+      "id": 13,
+      "name": "Pandas",
+      "category": "AI/ML",
+      "color": "#150458",
+      "icon_name": "SiPandas",
+      "sort_order": 13
+    },
+    {
+      "id": 14,
+      "name": "NumPy",
+      "category": "AI/ML",
+      "color": "#013243",
+      "icon_name": "SiNumpy",
+      "sort_order": 14
+    },
+    {
+      "id": 15,
+      "name": "Scikit-Learn",
+      "category": "AI/ML",
+      "color": "#F7931E",
+      "icon_name": "SiScikitlearn",
+      "sort_order": 15
+    },
+    {
+      "id": 16,
+      "name": "ROS",
+      "category": "Robotics",
+      "color": "#22314E",
+      "icon_name": "SiRos",
+      "sort_order": 16
+    },
+    {
+      "id": 17,
+      "name": "Arduino",
+      "category": "Robotics",
+      "color": "#00979D",
+      "icon_name": "SiArduino",
+      "sort_order": 17
+    },
+    {
+      "id": 18,
+      "name": "Raspberry Pi",
+      "category": "Robotics",
+      "color": "#A22846",
+      "icon_name": "SiRaspberrypi",
+      "sort_order": 18
+    },
+    {
+      "id": 19,
+      "name": "Git",
+      "category": "Tools",
+      "color": "#F05032",
+      "icon_name": "SiGit",
+      "sort_order": 19
+    },
+    {
+      "id": 20,
+      "name": "GitHub",
+      "category": "Tools",
+      "color": "#181717",
+      "icon_name": "SiGithub",
+      "sort_order": 20
+    },
+    {
+      "id": 21,
+      "name": "Docker",
+      "category": "Tools",
+      "color": "#2496ED",
+      "icon_name": "SiDocker",
+      "sort_order": 21
+    }
   ],
   "settings": {
     "socials": {

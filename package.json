@@ -1,10 +1,10 @@
 {
   "name": "aranya-kishor-das",
-  "description": "Aranya Portfolio Website First Iteration",
+  "description": "Portfolio website of Aranya Kishor Das",
   "author": "Aranya Kishor Das <aranya.akd@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aranya170"
+    "url": "https://github.com/aranya170/aranyaPortfolio"
   },
   "version": "1.0.0",
   "license": "MIT",
@@ -31,8 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build"
+    "deploy": "npm run build && firebase deploy"
   },
   "browserslist": {
     "production": [
@@ -47,7 +46,6 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0",
     "prettier": "^3.5.3"
   },
   "homepage": "."

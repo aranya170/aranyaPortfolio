@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Flip } from "gsap/Flip";
 
 import ProjectList from "./ProjectList";
-import CodeViewer from "./CodeViewer";
 import Icon from "./Icons";
 import "../styles/Projects.css";
 import {
@@ -14,18 +13,25 @@ import {
   VscChevronRight,
   VscGlobe,
 } from "react-icons/vsc";
-import { SiMysql, SiPython } from "react-icons/si";
+import { FaDatabase, FaPython } from "react-icons/fa";
 import { BsDatabase } from "react-icons/bs";
 import { usePortfolio } from "../context/PortfolioContext";
 
 gsap.registerPlugin(ScrollTrigger, Flip);
 
+// The syntax highlighter is large and only needed when a code file is opened
+const CodeViewer = lazy(() => import("./CodeViewer"));
+
 function getFileIcon(file) {
   const iconStyle = { marginRight: 6, fontSize: 15, flexShrink: 0 };
-  if (!file || !file.name) return <VscMarkdown style={{ ...iconStyle, color: "#8da1b9" }} />;
-  if (file.name.endsWith(".md")) return <VscMarkdown style={{ ...iconStyle, color: "#519975" }} />;
-  if (file.name.endsWith(".sql")) return <SiMysql style={{ ...iconStyle, color: "#00758f" }} />;
-  if (file.name.endsWith(".ipynb")) return <SiPython style={{ ...iconStyle, color: "#3572A5" }} />;
+  if (!file || !file.name)
+    return <VscMarkdown style={{ ...iconStyle, color: "#8da1b9" }} />;
+  if (file.name.endsWith(".md"))
+    return <VscMarkdown style={{ ...iconStyle, color: "#519975" }} />;
+  if (file.name.endsWith(".sql"))
+    return <FaDatabase style={{ ...iconStyle, color: "#00758f" }} />;
+  if (file.name.endsWith(".ipynb"))
+    return <FaPython style={{ ...iconStyle, color: "#3572A5" }} />;
   if (file.name.toLowerCase().includes("website") || file.type === "website") {
     return <VscGlobe style={{ ...iconStyle, color: "#64D98A" }} />;
   }
@@ -38,7 +44,7 @@ const getInitialOpenFolders = (projects) =>
 const getReadmeIdx = (files) => {
   if (!files || !Array.isArray(files) || files.length === 0) return 0;
   const idx = files.findIndex(
-    (file) => file && file.name && file.name.toLowerCase() === "readme.md"
+    (file) => file && file.name && file.name.toLowerCase() === "readme.md",
   );
   return idx >= 0 ? idx : 0;
 };
@@ -46,7 +52,9 @@ const getReadmeIdx = (files) => {
 export default function Projects() {
   const { portfolio } = usePortfolio();
   const projectsData =
-    portfolio && portfolio.projects && Object.keys(portfolio.projects).length > 0
+    portfolio &&
+    portfolio.projects &&
+    Object.keys(portfolio.projects).length > 0
       ? portfolio.projects
       : ProjectList;
 
@@ -54,9 +62,9 @@ export default function Projects() {
 
   const [selected, setSelected] = useState(() =>
     sectionKeys.reduce((acc, section) => {
-      acc[section] = { projectIdx: 0, fileIdx: 0 };
+      acc[section] = { projectIdx: 0, fileIdx: null };
       return acc;
-    }, {})
+    }, {}),
   );
 
   const [openFolders, setOpenFolders] = useState({});
@@ -78,7 +86,7 @@ export default function Projects() {
       const next = { ...prev };
       sectionKeys.forEach((section) => {
         if (!next[section]) {
-          next[section] = { projectIdx: 0, fileIdx: 0 };
+          next[section] = { projectIdx: 0, fileIdx: null };
         }
       });
       return next;
@@ -121,7 +129,7 @@ export default function Projects() {
             start: "top 85%",
             toggleActions: "play none none reverse",
           },
-        }
+        },
       );
 
       gsap.utils.toArray(".projects-section-container").forEach((sectionEl) => {
@@ -141,7 +149,7 @@ export default function Projects() {
               start: "top 85%",
               toggleActions: "play none none reverse",
             },
-          }
+          },
         );
       });
     }, projectsRef);
@@ -327,7 +335,7 @@ export default function Projects() {
                 duration: 0.5,
                 ease: "power2.out",
                 stagger: 0.05,
-              }
+              },
             );
           }, 50);
         },
@@ -374,9 +382,10 @@ export default function Projects() {
         const projects = projectsData[section] || [];
         if (!projects || projects.length === 0) return null;
 
-        const sectionState = selected[section] || { projectIdx: 0, fileIdx: 0 };
+        const sectionState = selected[section] || { projectIdx: 0, fileIdx: null };
         const safeProjectIdx =
-          sectionState.projectIdx < projects.length && sectionState.projectIdx >= 0
+          sectionState.projectIdx < projects.length &&
+          sectionState.projectIdx >= 0
             ? sectionState.projectIdx
             : 0;
         const selectedProject = projects[safeProjectIdx] || projects[0];
@@ -388,12 +397,16 @@ export default function Projects() {
             ? selectedProject.files
             : [{ name: "README.md", type: "info", content: "Project Details" }];
 
+        // fileIdx is null until a visitor picks a file: open on the README card (with the project image)
+        const requestedFileIdx =
+          sectionState.fileIdx === null || sectionState.fileIdx === undefined
+            ? getReadmeIdx(files)
+            : sectionState.fileIdx;
         const safeFileIdx =
-          sectionState.fileIdx < files.length && sectionState.fileIdx >= 0
-            ? sectionState.fileIdx
-            : 0;
+          requestedFileIdx < files.length && requestedFileIdx >= 0 ? requestedFileIdx : 0;
         const selectedFile = files[safeFileIdx] || files[0];
-        const activeFolder = activeFolders[section] !== undefined ? activeFolders[section] : 0;
+        const activeFolder =
+          activeFolders[section] !== undefined ? activeFolders[section] : 0;
 
         return (
           <div key={section} className="projects-section-container">
@@ -416,10 +429,13 @@ export default function Projects() {
                           project.name?.toLowerCase().includes("sql") ||
                           (Array.isArray(project.files) &&
                             project.files.some(
-                              (file) => file && file.name && file.name.endsWith(".sql")
+                              (file) =>
+                                file && file.name && file.name.endsWith(".sql"),
                             ));
 
-                        const projectFiles = Array.isArray(project.files) ? project.files : [];
+                        const projectFiles = Array.isArray(project.files)
+                          ? project.files
+                          : [];
 
                         return (
                           <li
@@ -436,7 +452,8 @@ export default function Projects() {
                               onMouseEnter={(e) => {
                                 if (!isActive) {
                                   gsap.to(e.currentTarget, {
-                                    backgroundColor: "rgba(100, 217, 138, 0.05)",
+                                    backgroundColor:
+                                      "rgba(100, 217, 138, 0.05)",
                                     duration: 0.2,
                                   });
                                 }
@@ -456,7 +473,9 @@ export default function Projects() {
                                   marginRight: 2,
                                   fontSize: 15,
                                   flexShrink: 0,
-                                  transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
+                                  transform: isOpen
+                                    ? "rotate(90deg)"
+                                    : "rotate(0deg)",
                                 }}
                               />
                               {isOpen ? (
@@ -464,7 +483,9 @@ export default function Projects() {
                                   className="folder-icon"
                                   style={{
                                     marginRight: 6,
-                                    color: isActive ? "var(--green-bright)" : "#8da1b9",
+                                    color: isActive
+                                      ? "var(--green-bright)"
+                                      : "#8da1b9",
                                     fontSize: 15,
                                     flexShrink: 0,
                                   }}
@@ -474,13 +495,17 @@ export default function Projects() {
                                   className="folder-icon"
                                   style={{
                                     marginRight: 6,
-                                    color: isActive ? "var(--green-bright)" : "#8da1b9",
+                                    color: isActive
+                                      ? "var(--green-bright)"
+                                      : "#8da1b9",
                                     fontSize: 15,
                                     flexShrink: 0,
                                   }}
                                 />
                               )}
-                              <span className="folder-name">{project.name}</span>
+                              <span className="folder-name">
+                                {project.name}
+                              </span>
                             </div>
 
                             <ul
@@ -493,7 +518,8 @@ export default function Projects() {
                             >
                               {projectFiles.map((file, fIdx) => {
                                 const isActiveFile =
-                                  safeProjectIdx === idx && safeFileIdx === fIdx;
+                                  safeProjectIdx === idx &&
+                                  safeFileIdx === fIdx;
 
                                 return (
                                   <li key={fIdx} className="file-item">
@@ -510,7 +536,7 @@ export default function Projects() {
                                             scale: 1,
                                             duration: 0.2,
                                             ease: "back.out(1.5)",
-                                          }
+                                          },
                                         );
                                         handleFileSelect(section, idx, fIdx);
                                       }}
@@ -539,89 +565,97 @@ export default function Projects() {
                     ref={contentRefs.current[section]}
                   >
                     {selectedFile && selectedFile.type === "info" ? (
-                      <div
-                        className="project-info-container"
-                        style={{
-                          backgroundImage: `url(${selectedProject.image || "/assets/uiu_robotics.png"})`,
-                          backgroundSize: "cover",
-                          backgroundPosition: "center",
-                          position: "relative",
-                        }}
-                      >
-                        <div className="project-overlay">
-                          <div className="project-content">
-                            <h3 className="project-title">{selectedProject.name}</h3>
+                      <div className="project-info-container">
+                        {selectedProject.image && (
+                          <div className="project-image-wrap">
+                            <img
+                              key={selectedProject.image}
+                              className="project-image"
+                              src={selectedProject.image}
+                              alt={selectedProject.name}
+                              loading="lazy"
+                              decoding="async"
+                              onError={(e) => {
+                                e.currentTarget.parentElement.style.display =
+                                  "none";
+                              }}
+                            />
+                          </div>
+                        )}
+                        <div className="project-content">
+                          <h3 className="project-title">
+                            {selectedProject.name}
+                          </h3>
 
-                            <p className="project-description">
-                              {selectedFile.content || "Project description"}
-                            </p>
-                            <div className="project-meta">
-                              <ul className="project-tags">
-                                {selectedProject.tags &&
-                                  selectedProject.tags.map((tag, i) => (
-                                    <li key={i} className="tag-pill">
-                                      {tag}
-                                    </li>
-                                  ))}
-                              </ul>
+                          <p className="project-description">
+                            {selectedFile.content || "Project description"}
+                          </p>
+                          <div className="project-meta">
+                            <ul className="project-tags">
+                              {selectedProject.tags &&
+                                selectedProject.tags.map((tag, i) => (
+                                  <li key={i} className="tag-pill">
+                                    {tag}
+                                  </li>
+                                ))}
+                            </ul>
 
-                              <div className="project-links">
-                                {selectedProject.dataset && (
-                                  <a
-                                    href={selectedProject.dataset}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    title="View Dataset"
-                                    className="icon-link dataset-link"
-                                  >
-                                    <BsDatabase />
-                                  </a>
-                                )}
-                                {selectedProject.medium && (
-                                  <a
-                                    href={selectedProject.medium}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    title="View Article"
-                                    className="icon-link"
-                                  >
-                                    <Icon name="Medium" />
-                                  </a>
-                                )}
-                                {selectedProject.website && (
-                                  <a
-                                    href={selectedProject.website}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    title="View Live Site"
-                                    className="icon-link website-link"
-                                  >
-                                    <VscGlobe style={{ fontSize: "18px" }} />
-                                  </a>
-                                )}
-                                {selectedProject.github && (
-                                  <a
-                                    href={selectedProject.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    title="GitHub"
-                                    className="icon-link github-link"
-                                  >
-                                    <Icon name="GitHub" />
-                                  </a>
-                                )}
-                                {selectedProject.tableau && (
-                                  <a
-                                    href={selectedProject.tableau}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    title="View Dashboard"
-                                    className="icon-link tableau-link"
-                                  >
-                                    <Icon name="Tableau" />
-                                  </a>
-                                )}
-                              </div>
+                            <div className="project-links">
+                              {selectedProject.dataset && (
+                                <a
+                                  href={selectedProject.dataset}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  title="View Dataset"
+                                  className="icon-link dataset-link"
+                                >
+                                  <BsDatabase />
+                                </a>
+                              )}
+                              {selectedProject.medium && (
+                                <a
+                                  href={selectedProject.medium}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  title="View Article"
+                                  className="icon-link"
+                                >
+                                  <Icon name="Medium" />
+                                </a>
+                              )}
+                              {selectedProject.website && (
+                                <a
+                                  href={selectedProject.website}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  title="View Live Site"
+                                  className="icon-link website-link"
+                                >
+                                  <VscGlobe style={{ fontSize: "18px" }} />
+                                </a>
+                              )}
+                              {selectedProject.github && (
+                                <a
+                                  href={selectedProject.github}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  title="GitHub"
+                                  className="icon-link github-link"
+                                >
+                                  <Icon name="GitHub" />
+                                </a>
+                              )}
+                              {selectedProject.tableau && (
+                                <a
+                                  href={selectedProject.tableau}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  title="View Dashboard"
+                                  className="icon-link tableau-link"
+                                >
+                                  <Icon name="Tableau" />
+                                </a>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -629,16 +663,20 @@ export default function Projects() {
                     ) : (
                       <div className="code-viewer-container">
                         <div className="code-header">
-                          <span className="file-name">{selectedFile?.name}</span>
+                          <span className="file-name">
+                            {selectedFile?.name}
+                          </span>
                           <div className="code-language-badge">
                             {selectedFile?.language || "code"}
                           </div>
                         </div>
-                        <CodeViewer
-                          code={selectedFile?.content || ""}
-                          language={selectedFile?.language || "javascript"}
-                          type={selectedFile?.type || "code"}
-                        />
+                        <Suspense fallback={<div className="code-viewer" />}>
+                          <CodeViewer
+                            code={selectedFile?.content || ""}
+                            language={selectedFile?.language || "javascript"}
+                            type={selectedFile?.type || "code"}
+                          />
+                        </Suspense>
                       </div>
                     )}
                   </div>

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { authenticateToken } = require("../middleware/auth");
+const { rateLimit } = require("../middleware/rateLimit");
 const authController = require("../controllers/authController");
 const portfolioController = require("../controllers/portfolioController");
 const adminController = require("../controllers/adminController");
@@ -9,8 +10,29 @@ const contactController = require("../controllers/contactController");
 const uploadController = require("../controllers/uploadController");
 const { testConnection, getConnectionStatus } = require("../config/db");
 
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: "Too many attempts. Please try again later.",
+});
+const contactLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 5,
+  message: "Too many messages. Please try again later.",
+});
+
 // ==================== PUBLIC ENDPOINTS ====================
 router.get("/health", async (req, res) => {
+  const isDbConnected = await testConnection();
+  res.json({
+    status: "ok",
+    timestamp: new Date().toISOString(),
+    postgres: { connected: isDbConnected },
+  });
+});
+
+// Detailed DB diagnostics are for the admin only
+router.get("/admin/health", authenticateToken, async (req, res) => {
   const isDbConnected = await testConnection();
   res.json({
     status: "ok",
@@ -23,11 +45,11 @@ router.get("/health", async (req, res) => {
 });
 
 router.get("/portfolio", portfolioController.getPortfolioData);
-router.post("/contact", contactController.submitContactMessage);
+router.post("/contact", contactLimiter, contactController.submitContactMessage);
 
 // ==================== AUTH ENDPOINTS ====================
-router.post("/auth/login", authController.login);
-router.post("/auth/register", authController.register);
+router.post("/auth/login", authLimiter, authController.login);
+router.post("/auth/register", authLimiter, authController.register);
 router.get("/auth/me", authenticateToken, authController.me);
 router.post("/auth/change-password", authenticateToken, authController.changePassword);
 

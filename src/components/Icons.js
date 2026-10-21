@@ -8,9 +8,8 @@ import {
   FiSend, 
   FiCheckCircle
 } from 'react-icons/fi';
-import { FaMediumM } from 'react-icons/fa';
+import { FaMediumM, FaChartBar } from 'react-icons/fa';
 import { RiStarSLine } from "react-icons/ri";
-import { SiTableau } from 'react-icons/si';
 import { IoDocumentAttachOutline } from "react-icons/io5";
 
 const Icon = ({ name, className }) => {
@@ -31,7 +30,7 @@ const Icon = ({ name, className }) => {
     case 'Star':
       return <RiStarSLine {...iconStyle} />;
     case 'Tableau':
-      return <SiTableau {...iconStyle} />;
+      return <FaChartBar {...iconStyle} />;
     case 'User':
       return <FiUser {...iconStyle} />;
     case 'MessageSquare':

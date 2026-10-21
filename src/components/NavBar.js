@@ -29,7 +29,6 @@ class NavBar extends React.Component {
     this.logoRef = React.createRef();
     this.initialRenderComplete = false;
     this.starButtonRef = React.createRef();
-    this.logoRef = React.createRef();
   }
 
   addToDesktopNavRefs(el) {
@@ -242,13 +241,13 @@ class NavBar extends React.Component {
             justifyContent: "space-between",
           }}
         >
-          <Navbar.Brand href="Home" style={{ marginRight: "auto" }}>
+          <Navbar.Brand href="#" style={{ marginRight: "auto" }}>
             <div className="logo-container btn-effect" ref={this.logoRef}>
               <img
                 className="logo"
                 src="/assets/aranya-kishor-das-logo.png"
                 alt="Aranya Kishor Das Logo"
-                title="Aranya Kishor Das - Data Scientist & Software Engineer"
+                title="Aranya Kishor Das - AI Researcher & Robotics Enthusiast"
                 style={{ height: "36px", width: "36px" }}
               />
             </div>

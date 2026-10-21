@@ -10,29 +10,32 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Enable CORS for frontend requests
+// FRONTEND_URL may hold a comma-separated list of extra origins
 const allowedOrigins = [
+  "https://aranyaportfolio.web.app",
+  "https://aranyaportfolio.firebaseapp.com",
   "http://localhost:3000",
   "http://127.0.0.1:3000",
   "http://localhost:5000",
-  process.env.FRONTEND_URL,
+  ...(process.env.FRONTEND_URL || "").split(",").map((o) => o.trim()),
 ].filter(Boolean);
+
+app.set("trust proxy", 1); // Render sits behind a proxy; needed for per-IP rate limiting
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, server-to-server) or in allowed list
+      // Allow requests with no origin (curl, server-to-server) or from an allowed site
       if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== "production") {
         return callback(null, true);
       }
-      // Allow all subdomains/domains if CORS_ALLOW_ALL is enabled or by default for custom deployments
-      return callback(null, true);
+      return callback(null, false);
     },
-    credentials: true,
   })
 );
 
-app.use(express.json({ limit: "25mb" }));
-app.use(express.urlencoded({ extended: true, limit: "25mb" }));
+app.use(express.json({ limit: "1mb" }));
+app.use(express.urlencoded({ extended: true, limit: "1mb" }));
 
 // Static files for uploads & public assets
 app.use("/uploads", express.static(path.join(__dirname, "../public/uploads")));
@@ -46,10 +49,11 @@ const buildPath = path.join(__dirname, "../build");
 const fs = require("fs");
 if (fs.existsSync(buildPath)) {
   app.use(express.static(buildPath));
-  app.get("*", (req, res) => {
-    if (!req.path.startsWith("/api") && !req.path.startsWith("/uploads") && !req.path.startsWith("/assets")) {
-      res.sendFile(path.join(buildPath, "index.html"));
+  app.get("*", (req, res, next) => {
+    if (req.path.startsWith("/api") || req.path.startsWith("/uploads") || req.path.startsWith("/assets")) {
+      return next();
     }
+    res.sendFile(path.join(buildPath, "index.html"));
   });
 } else {
   // Root healthcheck fallback when build is not local

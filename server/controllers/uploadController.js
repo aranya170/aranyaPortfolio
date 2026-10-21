@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
     cb(null, uploadsDir);
   },
   filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
+    const ext = path.extname(file.originalname).toLowerCase();
     const baseName = path.basename(file.originalname, ext).replace(/[^a-zA-Z0-9]/g, "_");
     cb(null, `${Date.now()}_${baseName}${ext}`);
   },
@@ -22,24 +22,37 @@ const upload = multer({
   storage,
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
   fileFilter: (req, file, cb) => {
-    const allowed = /jpeg|jpg|png|webp|gif|svg|pdf/;
-    const ext = path.extname(file.originalname).toLowerCase().replace(".", "");
-    if (allowed.test(ext)) {
+    // SVG is excluded on purpose: it can carry scripts
+    const allowedExt = /^\.(jpe?g|png|webp|gif|pdf)$/;
+    const allowedMime = /^(image\/(jpeg|png|webp|gif)|application\/pdf)$/;
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (allowedExt.test(ext) && allowedMime.test(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error("Only images (PNG, JPG, WEBP, SVG) and PDF files are allowed"));
+      cb(new Error("Only images (PNG, JPG, WEBP, GIF) and PDF files are allowed"));
     }
   },
 });
 
-exports.uploadMiddleware = upload.single("file");
+const singleUpload = upload.single("file");
+
+// Wrap multer so filter/size errors come back as JSON instead of Express's HTML error page
+exports.uploadMiddleware = (req, res, next) => {
+  singleUpload(req, res, (err) => {
+    if (err) {
+      return res.status(400).json({ success: false, message: err.message });
+    }
+    next();
+  });
+};
 
 exports.handleUpload = (req, res) => {
   if (!req.file) {
     return res.status(400).json({ success: false, message: "No file uploaded" });
   }
 
-  const fileUrl = `/uploads/${req.file.filename}`;
+  // Absolute URL, because the frontend is hosted on a different origin than the API
+  const fileUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
   return res.json({
     success: true,
     message: "File uploaded successfully",

@@ -13,57 +13,9 @@ import { usePortfolio } from "../context/PortfolioContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const defaultMilestones = [
-  {
-    title: "Early Curiosity",
-    description:
-      "Fascinated by computers and RC cars in Class 8, discovering microcontrollers like Arduino and ESP.",
-    year: "2015",
-    type: "idea",
-  },
-  {
-    title: "Tech Exploration",
-    description:
-      "Explored competitive programming, web development, graphics design, and video editing.",
-    year: "2015 - 2019",
-    type: "career",
-  },
-  {
-    title: "Global Offers & Pivots",
-    description:
-      "Received 19 university admission offers across the USA and Switzerland; enrolled at UIU.",
-    year: "2020 - 2021",
-    type: "education",
-  },
-  {
-    title: "Deep Dive in AI & Robotics",
-    description:
-      "Joined UIU Robotics, began publishing research, and focused on Deep Learning.",
-    year: "2022 - 2024",
-    type: "research",
-  },
-  {
-    title: "President & Lead Researcher",
-    description:
-      "Became President of UIU Robotics and Undergraduate Assistant under Dr. Mohammad Nurul Huda.",
-    year: "2024 - 2025",
-    type: "startup",
-  },
-  {
-    title: "Present & Future Horizons",
-    description:
-      "Pursuing higher research in AI, intelligent robotics, and scalable systems.",
-    year: "2025 - Present",
-    type: "statistics",
-  },
-];
-
 export default function Timeline() {
   const { portfolio } = usePortfolio();
-  const milestones =
-    portfolio && Array.isArray(portfolio.timeline) && portfolio.timeline.length > 0
-      ? portfolio.timeline
-      : defaultMilestones;
+  const milestones = portfolio.timeline;
 
   const timelineWrapRef = useRef(null);
   const timelineItemsRef = useRef([]);

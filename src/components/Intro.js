@@ -7,16 +7,8 @@ import { usePortfolio } from "../context/PortfolioContext";
 
 const Intro = () => {
   const { portfolio } = usePortfolio();
-  const siteProfile = portfolio?.siteProfile || {
-    greeting: "Hi there! I'm ",
-    name: "Aranya Kishor Das",
-    subtitle: "AI Researcher & Robotics Enthusiast",
-    subtitle_suffix: "dedicated to Intelligent Systems.",
-    description:
-      "From building RC cars in highschool to leading UIU Robotics and researching AI, I'm driven by a passion for creating smarter solutions through Deep Learning and Robotics.",
-    cv_url: "/assets/My_CV.pdf",
-    show_robot: true,
-  };
+  const siteProfile = portfolio.siteProfile;
+  const subtitle = siteProfile.subtitle || "AI Researcher & Robotics Enthusiast";
 
   const cursorRef = useRef(null);
   const subtitleRef = useRef(null);
@@ -229,10 +221,8 @@ const Intro = () => {
         </div>
 
         <div className="intro-subtitle" ref={subtitleRef}>
-          I'm a{" "}
-          <span className="intro-subtitle-name">
-            {siteProfile.subtitle || "AI Researcher & Robotics Enthusiast"}
-          </span>{" "}
+          I'm {/^[aeiou]/i.test(subtitle) ? "an" : "a"}{" "}
+          <span className="intro-subtitle-name">{subtitle}</span>{" "}
           {siteProfile.subtitle_suffix || "dedicated to Intelligent Systems."}
         </div>
 

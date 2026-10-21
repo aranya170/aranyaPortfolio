@@ -207,7 +207,7 @@ export default function ProjectsSector() {
     }
   };
 
-  const defaultCategories = ["Software", "Research", "Hardware", "SQL", "Python", "Tableau"];
+  const defaultCategories = ["Software", "Research", "Hardware"];
   const existingCategories = Array.from(new Set(projects.map((p) => p.category).filter(Boolean)));
   const allCategoriesList = Array.from(new Set([...defaultCategories, ...existingCategories]));
   const categories = ["All", ...allCategoriesList];
@@ -225,7 +225,7 @@ export default function ProjectsSector() {
         <div>
           <h3 className="admin-card-title">Projects & Interactive Code Viewer Sector</h3>
           <div className="admin-card-subtitle">
-            Manage Software, Research, Hardware, SQL, Python, and Tableau projects, attached code files, and notebooks.
+            Manage Software, Research and Hardware projects, attached code files, and notebooks.
           </div>
         </div>
         <button className="admin-btn admin-btn-primary" onClick={openCreateModal}>
