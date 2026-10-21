@@ -129,7 +129,7 @@ export default function Timeline() {
   return (
     <section id="timeline">
       <div className="section-header">
-        <span className="section-title timeline-title">Timeline</span>
+        <h2 className="section-title timeline-title">Timeline</h2>
       </div>
 
       <div className="timeline-wrapper" ref={timelineWrapRef}>

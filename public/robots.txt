@@ -1,4 +1,5 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin
 
 Sitemap: https://aranyaportfolio.web.app/sitemap.xml

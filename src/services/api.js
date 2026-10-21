@@ -18,6 +18,13 @@ const getApiBaseUrl = () => {
 
 const API_BASE_URL = getApiBaseUrl();
 
+// Files uploaded through the admin panel live on the API server (e.g. /uploads/cv.pdf),
+// not on Firebase Hosting, so point those paths at the API's origin.
+export const assetUrl = (path) => {
+  if (!path || !path.startsWith("/uploads/")) return path;
+  return `${API_BASE_URL.replace(/\/api$/, "")}${path}`;
+};
+
 function getAuthHeader() {
   const token = localStorage.getItem("portfolio_admin_token");
   return token ? { Authorization: `Bearer ${token}` } : {};

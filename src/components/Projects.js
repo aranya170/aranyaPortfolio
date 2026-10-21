@@ -16,6 +16,7 @@ import {
 import { FaDatabase, FaPython } from "react-icons/fa";
 import { BsDatabase } from "react-icons/bs";
 import { usePortfolio } from "../context/PortfolioContext";
+import { assetUrl } from "../services/api";
 
 gsap.registerPlugin(ScrollTrigger, Flip);
 
@@ -375,7 +376,7 @@ export default function Projects() {
   return (
     <section id="projects" ref={projectsRef}>
       <div className="section-header">
-        <span className="section-title">Projects</span>
+        <h2 className="section-title">Projects</h2>
       </div>
 
       {sectionKeys.map((section) => {
@@ -411,9 +412,9 @@ export default function Projects() {
         return (
           <div key={section} className="projects-section-container">
             <div className="projects-directory-layout">
-              <h2 className="project-section-title">
+              <h3 className="project-section-title">
                 <span className="gradient-text">{section}</span> Projects
-              </h2>
+              </h3>
               <div className="project-section">
                 <div className="directory-box">
                   <div className="directory-bg-elements">
@@ -571,7 +572,7 @@ export default function Projects() {
                             <img
                               key={selectedProject.image}
                               className="project-image"
-                              src={selectedProject.image}
+                              src={assetUrl(selectedProject.image)}
                               alt={selectedProject.name}
                               loading="lazy"
                               decoding="async"
@@ -583,9 +584,9 @@ export default function Projects() {
                           </div>
                         )}
                         <div className="project-content">
-                          <h3 className="project-title">
+                          <h4 className="project-title">
                             {selectedProject.name}
-                          </h3>
+                          </h4>
 
                           <p className="project-description">
                             {selectedFile.content || "Project description"}

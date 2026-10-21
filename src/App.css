@@ -66,6 +66,8 @@ a {
 }
 
 .section-title {
+  margin: 0;
+  line-height: inherit;
   font-family: "NTR", sans-serif;
   background: var(--anchor-text);
   background-clip: text;

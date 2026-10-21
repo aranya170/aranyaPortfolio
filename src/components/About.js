@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Icon from "./Icons";
 import "../styles/About.css";
 import { usePortfolio } from "../context/PortfolioContext";
+import { assetUrl } from "../services/api";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,15 +71,18 @@ const About = () => {
         <div className="about-flex-container">
           <div className="about-image-container">
             <img 
-              src={aboutData.profile_image || "/assets/Aranya Kishor Das.png"} 
-              alt="Aranya Kishor Das" 
+              src={assetUrl(aboutData.profile_image) || "/assets/Aranya Kishor Das.png"} 
+              alt="Aranya Kishor Das, AI researcher and robotics engineer from Bangladesh"
+              width="450"
+              height="450"
+              loading="lazy" 
               className="about-profile-image"
             />
           </div>
           
           <div className="about-text-content">
             <div className="section-header">
-              <span className="section-title about-title">{aboutData.title || "About Me"}</span>
+              <h2 className="section-title about-title">{aboutData.title || "About Me"}</h2>
             </div>
 
             <div className="about-description">

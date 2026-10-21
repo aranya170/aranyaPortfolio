@@ -56,7 +56,7 @@ const Experience = () => {
   return (
     <section id="experience" ref={experienceRef}>
       <div className="section-header">
-        <span className="section-title experience-title">Experience</span>
+        <h2 className="section-title experience-title">Experience</h2>
       </div>
 
       <div className="experience-content" ref={contentRef}>

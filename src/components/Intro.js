@@ -4,6 +4,7 @@ import AnimatedRobot from "./AnimatedRobot";
 import Icon from "./Icons";
 import { gsap } from "gsap";
 import { usePortfolio } from "../context/PortfolioContext";
+import { assetUrl } from "../services/api";
 
 const Intro = () => {
   const { portfolio } = usePortfolio();
@@ -232,7 +233,7 @@ const Intro = () => {
 
         <div className="intro-buttons" ref={buttonsRef}>
           <a
-            href={siteProfile.cv_url || "/assets/My_CV.pdf"}
+            href={assetUrl(siteProfile.cv_url) || "/assets/My_CV.pdf"}
             className="outline-button btn-effect"
             target="_blank"
             rel="noopener noreferrer"

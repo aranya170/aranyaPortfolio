@@ -26,7 +26,7 @@ const GitHubContributions = () => {
   return (
     <section id="github" className="gh-contrib-container">
       <div className="section-header">
-        <span className="section-title">GitHub</span>
+        <h2 className="section-title">GitHub</h2>
       </div>
 
       <div className="gh-content">

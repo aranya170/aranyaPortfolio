@@ -224,7 +224,7 @@ export default function Contact() {
   return (
     <section id="contact" ref={contactSectionRef}>
       <div className="section-header">
-        <span className="section-title">Get In Touch</span>
+        <h2 className="section-title">Get In Touch</h2>
       </div>
       <div className="contact-intro">
         <p>

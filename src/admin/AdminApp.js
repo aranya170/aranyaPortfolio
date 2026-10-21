@@ -37,6 +37,20 @@ export default function AdminApp() {
   const [activeTab, setActiveTab] = useState("overview");
   const [unreadCount, setUnreadCount] = useState(0);
 
+  // Keep the admin portal out of search results
+  useEffect(() => {
+    const meta = document.createElement("meta");
+    meta.name = "robots";
+    meta.content = "noindex, nofollow";
+    document.head.appendChild(meta);
+    const previousTitle = document.title;
+    document.title = "Admin | Aranya Kishor Das";
+    return () => {
+      meta.remove();
+      document.title = previousTitle;
+    };
+  }, []);
+
   // Check existing token on mount
   useEffect(() => {
     const checkAuth = async () => {
