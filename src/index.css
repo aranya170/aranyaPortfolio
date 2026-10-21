@@ -1,12 +1,10 @@
 body {
   margin: 0;
-  font-family: 'Public Sans', "Segoe UI", "Inter", "Roboto", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
 }
 
 code {
-  font-family: Public Sans, Inter, monospace;
+  font-family: var(--font-mono);
 }

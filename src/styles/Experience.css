@@ -23,8 +23,8 @@
 .joblist-tab {
   background: none;
   border: none;
-  color: var(--lightest-slate);
-  padding: 1rem 1.5rem;
+  color: var(--muted);
+  padding: 0.85rem 1.5rem;
   cursor: pointer;
   text-align: left;
   font-size: 16px;
@@ -34,15 +34,16 @@
 
 
 .joblist-tab.active,
-.joblist-tab:focus {
-  color: var(--green-bright);
-  font-weight: bold;
-  border-left: 3px solid var(--green-bright);
+.joblist-tab:focus-visible {
+  color: var(--text);
+  font-weight: 600;
+  border-left: 2px solid var(--signal);
+  background: linear-gradient(90deg, rgba(244, 63, 94, 0.08), transparent);
 }
 
 .joblist-tab:hover {
-  background: var(--color-hover);
-  color: var(--green-bright);
+  background: rgba(16, 185, 129, 0.06);
+  color: var(--text);
 }
 
 .joblist-content {
@@ -51,25 +52,32 @@
 }
 
 .joblist-job-title {
-  font-family: "NTR", sans-serif;
-  font-size: 28px;
-  font-weight: bold;
-  color: var(--lightest-slate);
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
 }
 
 .joblist-job-company {
-  font-family: "NTR", sans-serif;
-  font-size: 28px;
-  color: var(--green-bright);
-  font-weight: bold;
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--primary-bright);
+  font-weight: 600;
+  letter-spacing: -0.01em;
   margin-left: 0.5rem;
 }
 
 .joblist-duration {
-  font-family: "NTR", sans-serif;
-  font-size: 18px;
-  color: var(--lightest-slate);
-  margin-bottom: 1rem;
+  display: inline-block;
+  margin: 10px 0 1.2rem;
+  padding: 3px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
 }
 
 ul {
@@ -78,7 +86,7 @@ ul {
 
 .job-description {
   padding-top: 24px;
-  font-family: "NTR", sans-serif;
+  font-family: var(--font-display);
   margin-top: 0.5rem;
   padding-left: 1.2rem;
 }
@@ -92,10 +100,14 @@ ul {
 }
 
 .job-description li::before {
-  content: "▹    ";
-  color: var(--green-bright);
+  content: "";
   position: absolute;
   left: 0;
+  top: 0.7em;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--primary);
 }
 
 @media only screen and (max-width: 600px) {
@@ -125,7 +137,7 @@ ul {
   .joblist-tab.active,
   .joblist-tab:focus {
     border-left: none;
-    border-bottom: 3px solid #64d98a;
+    border-bottom: 2px solid var(--signal);
   }
   .joblist-job-title,
   .joblist-job-company {
@@ -133,7 +145,7 @@ ul {
   }
 
   .joblist-duration {
-    font-size: 16px;
+    font-size: 12px;
   }
 
   .job-description li {

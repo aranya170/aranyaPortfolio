@@ -9,33 +9,46 @@
 
 .tech-grid-container {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 14px;
   margin-top: 30px;
 }
 
 .tech-icon-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  border-radius: 10px;
+  gap: 12px;
+  padding: 20px 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
   background-color: var(--box-color);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  aspect-ratio: 1/1;
-  cursor: pointer;
-  transition: var(--transition);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
   position: relative;
-  max-width: 110px; 
-  margin: 0 auto;
 }
 
 .tech-icon-container:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border-color: rgba(16, 185, 129, 0.45);
+  background-color: var(--surface-raised);
+}
+
+.tech-name {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.tech-icon-container:hover .tech-name {
+  color: var(--text);
 }
 
 .tech-icon {
-  font-size: 36px;
+  min-height: 34px;
+  font-size: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,74 +56,18 @@
 }
 
 .tech-icon svg {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   display: block;
-}
-
-.tech-icon-container::after {
-  content: attr(title);
-  position: absolute;
-  bottom: -35px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(22, 28, 47, 0.9);
-  color: var(--lightest-slate);
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 13px;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 10;
-  border: 1px solid rgba(100, 217, 138, 0.3);
-}
-
-.tech-icon-container:hover::after {
-  opacity: 1;
-  visibility: visible;
-}
-
-@media (max-width: 992px) {
-  .tech-grid-container {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 25px;
-  }
-}
-
-@media (max-width: 768px) {
-  .tech-grid-container {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-  }
-  
-  .tech-icon {
-    font-size: 40px;
-  }
-  
-  .tech-icon svg {
-    width: 40px;
-    height: 40px;
-  }
 }
 
 @media (max-width: 576px) {
   .tech-grid-container {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
   }
-  
+
   .tech-icon-container {
-    padding: 20px;
-  }
-  
-  .tech-icon {
-    font-size: 36px;
-  }
-  
-  .tech-icon svg {
-    width: 36px;
-    height: 36px;
+    padding: 16px 6px 12px;
   }
 }

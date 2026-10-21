@@ -6,6 +6,19 @@ import { usePortfolio } from "../context/PortfolioContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Brand colours like GitHub's near-black disappear on the dark background
+const readableColor = (hex) => {
+  const m = /^#?([0-9a-f]{6})/i.exec(hex || "");
+  if (!m) return "var(--text)";
+  const n = parseInt(m[1], 16);
+  const [r, g, b] = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((c) => {
+    const v = c / 255;
+    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  });
+  const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return luminance < 0.06 ? "var(--text)" : `#${m[1]}`;
+};
+
 export default function TechStack() {
   const { portfolio } = usePortfolio();
   const techStackData = portfolio.techStack;
@@ -89,30 +102,11 @@ export default function TechStack() {
   }, [techStackData]);
 
   const handleIconHover = (e, enter) => {
-    const target = e.currentTarget;
-    if (enter) {
-      gsap.to(target, {
-        y: -5,
-        scale: 1.1,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-      gsap.to(target.querySelector(".tech-icon"), {
-        color: "var(--green-bright)",
-        duration: 0.3,
-      });
-    } else {
-      gsap.to(target, {
-        y: 0,
-        scale: 1,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-      gsap.to(target.querySelector(".tech-icon"), {
-        color: target.dataset.color,
-        duration: 0.3,
-      });
-    }
+    gsap.to(e.currentTarget, {
+      y: enter ? -4 : 0,
+      duration: 0.3,
+      ease: "power2.out",
+    });
   };
 
   const renderIcon = (iconName) => {
@@ -132,14 +126,13 @@ export default function TechStack() {
           <div
             key={tool.name}
             className="tech-icon-container"
-            data-color={tool.color}
-            title={tool.name}
             onMouseEnter={(e) => handleIconHover(e, true)}
             onMouseLeave={(e) => handleIconHover(e, false)}
           >
-            <div className="tech-icon" style={{ color: tool.color }}>
+            <div className="tech-icon" style={{ color: readableColor(tool.color) }} aria-hidden="true">
               {renderIcon(tool.icon_name)}
             </div>
+            <span className="tech-name">{tool.name}</span>
           </div>
         ))}
       </div>

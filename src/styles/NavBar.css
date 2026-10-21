@@ -1,23 +1,26 @@
 .navbar {
-  background: rgba(0, 0, 0, 0.1);
-  font-family: "NTR", sans-serif;
-  padding: 15px 60px !important;
-  font-size: 16px;
-  font-weight: 600;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(7, 11, 10, 0.55);
+  font-family: var(--font-body);
+  padding: 14px 60px !important;
+  font-size: 14px;
+  font-weight: 500;
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--line);
   z-index: 2000;
   position: fixed;
 }
 
 .navbar-animated {
-  box-shadow: var(--shadow);
   transition: var(--transition);
 }
 
 .navbar-at-top {
-  box-shadow: none !important;
-  padding: 25px 60px !important;
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 22px 60px !important;
 }
 
 .navbar-animated.navbar-hidden {
@@ -28,42 +31,34 @@
   transform: translateY(0);
 }
 
+/* Desktop links sit in a single glassy pill */
+.desktop-nav .navbar-nav {
+  gap: 2px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(14, 21, 19, 0.6);
+}
+
 .navbar-nav .nav-link {
-  color: var(--lightest-slate) !important;
-  margin-right: 30px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  color: var(--muted) !important;
+  padding: 7px 16px !important;
+  border-radius: 999px;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  display: inline-block;
   position: relative;
-  background: none;
   transition: var(--transition);
-}
-
-.navbar-nav .nav-link:after {
-  background: none repeat scroll 0 0 transparent;
-  bottom: 0;
-  content: "";
-  display: block;
-  height: 2px;
-  left: 50%;
-  position: absolute;
-  background: var(--green-bright);
-  transition: var(--transition);
-  width: 0;
-}
-
-.navbar-nav .nav-link:hover:after,
-.navbar-nav .nav-link:focus:after {
-  width: 100%;
-  left: 0;
 }
 
 .navbar-nav .nav-link:hover,
-.navbar-nav .nav-link:focus {
-  color: var(--green-bright) !important;
-  scale: 1.1;
-  transition: var(--transition);
+.navbar-nav .nav-link:focus-visible {
+  color: var(--text) !important;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+/* Logo PNG is drawn in the old mint; shift it onto the emerald palette */
+.logo {
+  filter: hue-rotate(18deg) saturate(1.1);
 }
 
 .navbar-star-btn {
@@ -88,8 +83,8 @@
 .navbar-mobile-divider {
   display: none;
   height: 20px;
-  width: 2px;
-  background-color: var(--green-bright);
+  width: 1px;
+  background-color: var(--line);
   border-radius: 10px;
   filter: var(--drop-shadow);
   margin-right: 25px;
@@ -130,7 +125,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(10, 25, 47, 0.9);
+  background-color: rgba(14, 21, 19, 0.9);
   z-index: 1998;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -155,7 +150,7 @@
   z-index: 1999;
   transform: translateX(100%);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border-left: 1px solid rgba(100, 217, 138, 0.1);
+  border-left: 1px solid rgba(16, 185, 129, 0.1);
 }
 
 .mobile-menu.open {
@@ -186,7 +181,9 @@
   text-align: left;
   font-size: 18px !important;
   padding: 15px 0;
-  border-bottom: 1px solid rgba(204, 214, 246, 0.1);
+  border-bottom: 1px solid var(--line);
+  background: none;
+  border-radius: 0;
   transition:
     color 0.2s ease,
     padding-left 0.2s ease;
@@ -203,7 +200,7 @@
   }
 
   .navbar-nav .nav-link {
-    margin-right: 10px;
+    padding: 7px 12px !important;
   }
 
   .navbar-nav.me-auto {
@@ -234,7 +231,6 @@
   }
 
   .mobile-nav-links .nav-link {
-    letter-spacing: 1px !important;
     font-size: 16px !important;
   }
 

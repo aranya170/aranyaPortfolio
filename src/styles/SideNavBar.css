@@ -12,7 +12,7 @@
 }
 
 .side-navbar a {
-  color: var(--lightest-slate) !important;
+  color: var(--muted) !important;
 }
 .side-navbar a:hover {
   color: var(--green-bright) !important;
@@ -20,22 +20,21 @@
   transition: var(--transition);
 }
 
+/* Vertical rail under the icons, ending in the signal colour */
 .side-navbar-divider {
-  width: 30px;
-  height: 1.5px;
+  width: 1px;
+  height: 56px;
   margin-bottom: 10px;
-  background-color: var(--green-bright);
-  border-radius: 10px;
-  filter: var(--drop-shadow);
+  background: linear-gradient(180deg, var(--line), var(--signal));
 }
 
 .side-navbar button.star-btn {
   background: none;
   border: none;
   margin: 0 0 40px 0;
-  color: var(--lightest-slate);
+  color: var(--muted);
   cursor: pointer;
-  font-size: 32px;
+  font-size: 26px;
   padding: 0;
   transition: color 0.2s;
   display: flex;
@@ -49,9 +48,9 @@
 }
 
 .sidenav-icon {
-  width: 22px;
-  height: 22px;
-  margin: 0 0 20px 0;
+  width: 20px;
+  height: 20px;
+  margin: 0 0 14px 0;
 }
 
 @media (max-width: 1260px) {

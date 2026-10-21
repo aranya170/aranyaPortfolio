@@ -1,6 +1,6 @@
 html {
   scroll-behavior: smooth;
-  scrollbar-color: rgba(100, 217, 138, 0.3) #10131a;
+  scrollbar-color: rgba(16, 185, 129, 0.35) var(--ink);
 }
 
 .App {
@@ -16,7 +16,7 @@ html {
 }
 
 .App {
-  font-family: "NTR", sans-serif;
+  font-family: var(--font-body);
   display: flex;
   background: var(--bg-gradient);
   margin: auto;
@@ -42,7 +42,8 @@ a {
 }
 
 ::selection {
-  background: #13432675;
+  background: rgba(16, 185, 129, 0.3);
+  color: var(--text);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -58,34 +59,55 @@ a {
   font-size: calc(10px + 2vmin);
 }
 
+/* Section headers: "01" mono index, solid title, then a hairline that fades out */
+#content {
+  counter-reset: section;
+}
+
 .section-header {
+  counter-increment: section;
   display: flex;
-  justify-content: left;
-  margin-bottom: 30px;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
   position: relative;
+}
+
+.section-header::before {
+  content: counter(section, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--primary-bright);
+  padding: 4px 8px;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 6px;
+  background: rgba(16, 185, 129, 0.08);
+  line-height: 1;
+}
+
+.section-header::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  max-width: 320px;
+  background: linear-gradient(90deg, rgba(230, 237, 234, 0.18), transparent);
 }
 
 .section-title {
   margin: 0;
-  line-height: inherit;
-  font-family: "NTR", sans-serif;
-  background: var(--anchor-text);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  padding-bottom: 10px;
-  font-size: 2.5rem;
-  font-weight: 650;
+  font-family: var(--font-display);
+  color: var(--text);
+  font-size: 2.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
-.section-title:after {
-  content: '';
-  position: absolute;
-  width: 60%;
-  height: 3px;
-  background-color: var(--green-bright);
-  bottom: 0;
-  left: 20%;
+/* Red signal full stop after every section title */
+.section-title::after {
+  content: ".";
+  color: var(--signal);
 }
 
 @media only screen and (max-width: 600px) {
@@ -103,14 +125,13 @@ a {
     width: unset;
   }
 
-  .section-header::after {
-    flex: 1 1 auto;
-    width: auto;
-    margin-top: 20px;
+  .section-header {
+    gap: 12px;
+    margin-bottom: 28px;
   }
 
   .section-title {
-    font-size: 27px;
+    font-size: 26px;
   }
 }
 

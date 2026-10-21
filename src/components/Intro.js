@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "../styles/Intro.css";
-import AnimatedRobot from "./AnimatedRobot";
+import RoboticCell from "./RoboticCell";
 import Icon from "./Icons";
 import { gsap } from "gsap";
 import { usePortfolio } from "../context/PortfolioContext";
@@ -12,6 +12,8 @@ const Intro = () => {
   const subtitle = siteProfile.subtitle || "AI Researcher & Robotics Enthusiast";
 
   const cursorRef = useRef(null);
+  const kickerRef = useRef(null);
+  const removeResizeRef = useRef(null);
   const subtitleRef = useRef(null);
   const descRef = useRef(null);
   const buttonsRef = useRef(null);
@@ -25,7 +27,7 @@ const Intro = () => {
     if (hasRunRef.current) return;
     hasRunRef.current = true;
 
-    gsap.set([subtitleRef.current, descRef.current, buttonsRef.current], {
+    gsap.set([kickerRef.current, subtitleRef.current, descRef.current, buttonsRef.current], {
       opacity: 0,
       y: 20,
     });
@@ -37,11 +39,11 @@ const Intro = () => {
       });
     }
 
-    gsap.to([subtitleRef.current, descRef.current, buttonsRef.current], {
+    gsap.to([kickerRef.current, subtitleRef.current, descRef.current, buttonsRef.current], {
       opacity: 1,
       y: 0,
       duration: 0.4,
-      stagger: 0.6,
+      stagger: 0.25,
       ease: "power2.out",
       delay: 0.6,
     });
@@ -101,67 +103,49 @@ const Intro = () => {
       });
 
       const allChars = [...introChars, ...nameChars];
-      const windmill = cursorRef.current.querySelector("svg");
+      const caret = cursorRef.current;
+      const container = caret.parentElement;
 
-      gsap.set(cursorRef.current, {
-        opacity: 1,
-        left: -10,
-        top: "50%",
-        xPercent: 0,
-        yPercent: -50,
-      });
-
-      const typingTl = gsap.timeline();
-
-      if (windmill) {
-        gsap.to(windmill, {
-          rotation: 360 * 7.5,
-          duration: 3,
-          ease: "linear",
-          repeat: -1,
-          transformOrigin: "center center",
+      // Park the caret right after a character. Measured per character, so it
+      // follows the text correctly even when the heading wraps on small screens.
+      const moveCaretTo = (char) => {
+        const box = container.getBoundingClientRect();
+        const rect = char.getBoundingClientRect();
+        gsap.set(caret, {
+          left: rect.right - box.left + 2,
+          top: rect.top - box.top + rect.height * 0.12,
+          height: rect.height * 0.76,
         });
-      }
+      };
 
-      document.body.offsetHeight;
+      gsap.set(caret, { opacity: 1 });
+      moveCaretTo(allChars[0]);
+
+      const typingTl = gsap.timeline({
+        onComplete: () => {
+          caret.classList.add("typing-done");
+          // Keep the caret glued to the end of the name if the layout reflows
+          const lastChar = allChars[allChars.length - 1];
+          const reposition = () => moveCaretTo(lastChar);
+          window.addEventListener("resize", reposition);
+          removeResizeRef.current = () => window.removeEventListener("resize", reposition);
+        },
+      });
 
       allChars.forEach((char) => {
-        const charWidth = char.getBoundingClientRect().width || 10;
-
-        typingTl.to(cursorRef.current, {
-          left: `+=${charWidth}`,
-          duration: 0.08,
+        typingTl.to(char, {
+          opacity: 1,
+          duration: 0.05,
           ease: "none",
-          onStart: () => {
-            gsap.to(char, {
-              opacity: 1,
-              duration: 0.1,
-            });
-          },
+          onStart: () => moveCaretTo(char),
         });
       });
-
-      typingTl.to(cursorRef.current, {
-        left: "+=20",
-        duration: 0.1,
-        ease: "power1.out",
-      });
-
-      if (windmill) {
-        typingTl.add(() => {
-          gsap.killTweensOf(windmill);
-          gsap.to(windmill, {
-            rotation: "+=385",
-            duration: 0.9,
-            ease: "power2.Out",
-            transformOrigin: "center center",
-          });
-        });
-      }
     }
 
     return () => {
+      removeResizeRef.current?.();
       gsap.killTweensOf([
+        kickerRef.current,
         subtitleRef.current,
         descRef.current,
         buttonsRef.current,
@@ -173,6 +157,11 @@ const Intro = () => {
   return (
     <div className="intro-section">
       <div className="intro-content">
+        <p className="signal-kicker intro-kicker" ref={kickerRef}>
+          <span className="signal-dot" aria-hidden="true" />
+          AI &amp; Robotics Research
+          <span className="intro-kicker-location"> · Dhaka, Bangladesh</span>
+        </p>
         <div className="typist-content">
           <div className="text-typing-container" style={{ position: "relative" }}>
             <h1
@@ -187,37 +176,12 @@ const Intro = () => {
               </span>
             </h1>
 
-            <div
+            <span
               ref={cursorRef}
-              className="windmill-cursor"
+              className="typing-caret"
               style={{ position: "absolute", pointerEvents: "none" }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 248 248"
-              >
-                <path
-                  fill="url(#windmill-gradient-1)"
-                  d="M152.266 123.716h94.275c.802 0 1.459.656 1.459 1.459v121.067c0 .81-.664 1.474-1.474 1.466-67.274-.78-121.669-55.137-122.522-122.387v121.22c0 .803-.657 1.459-1.46 1.459H1.474c-.81 0-1.474-.664-1.467-1.474C.795 178.721 56 124.008 123.996 124H1.459C.657 124 0 123.344 0 122.541V1.474C0 .664.664 0 1.474.008c67.274.78 121.669 55.137 122.522 122.387V1.46c0-.803.657-1.46 1.46-1.46h121.07c.81 0 1.474.664 1.467 1.474-.679 58.224-41.486 106.801-96.055 119.367-1.686.386-1.401 2.875.336 2.875h-.008Z"
-                ></path>
-                <defs>
-                  <linearGradient
-                    id="windmill-gradient-1"
-                    x1="218"
-                    x2="-47.283"
-                    y1="258"
-                    y2="153.706"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop offset=".27" stopColor="#64D98A"></stop>
-                    <stop offset=".838" stopColor="#e2e8fd"></stop>
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
+              aria-hidden="true"
+            />
           </div>
         </div>
 
@@ -234,19 +198,23 @@ const Intro = () => {
         <div className="intro-buttons" ref={buttonsRef}>
           <a
             href={assetUrl(siteProfile.cv_url) || "/assets/My_CV.pdf"}
-            className="outline-button btn-effect"
+            className="primary-button btn-effect"
             target="_blank"
             rel="noopener noreferrer"
           >
             View CV
             <Icon name="Document" className="button-icon" />
           </a>
+          <a href="#contact" className="ghost-button btn-effect">
+            Get in touch
+            <Icon name="Send" className="button-icon" />
+          </a>
         </div>
       </div>
 
       {siteProfile.show_robot !== false && (
         <div className="intro-animation" ref={animationRef}>
-          <AnimatedRobot />
+          <RoboticCell />
         </div>
       )}
     </div>

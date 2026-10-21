@@ -1,46 +1,129 @@
+/* =============================================
+   Design tokens: "Bangladesh signal" palette
+   Emerald primary + red signal accent on deep ink,
+   a nod to the flag that also reads as lab-hardware LEDs.
+   ============================================= */
 :root {
-  --bg-gradient: linear-gradient(to bottom,#030f1a 0%,#030817 20%, #060a17 40%, #030817 60%); /* Page Background Color */
-  --lightest-slate: #e2e8fd; /* Headings, Text */
-  --nav-color: #030f1a10; /* NavBar */
-  --mobile-nav: #03141ad5; /* NavBar */
-  --green-bright: #64D98A; /* Highlight Text, Glow, Tags */
-  --color-hover: #0b0f1d; /* Box Color, Hover Color */
-  --box-color: rgba(11, 15, 29, 0.8); /* Box Color Transparent */
-  --anchor-text: linear-gradient(90deg, var(--green-bright) 50%, var(--lightest-slate));
-  --shadow: 0 4px 4px #0e0e0e60; /* Shadow */
-  --shadow-box: 0 0 12px #000000c9; /* Shadow */
-  --drop-shadow: drop-shadow(0 0 3px cyan); /* Drop Shadow */
-  --transition: all 0.3s cubic-bezier(0.645,0.045,0.355,1); /* Transition */ 
-  --bottom-gradient: linear-gradient(120deg,rgba(100, 217, 138, 0.8),rgba(100, 217, 138, 0.3),rgba(65, 199, 199, 0.6),rgba(100, 217, 138, 0.3), rgba(100, 217, 138, 0.8)); /* Bottom Border Gradient */
-  --gradient-border: linear-gradient(120deg,rgba(100, 217, 137, 0.4),rgba(100, 217, 138, 0.1),rgba(65, 199, 199, 0.6),rgba(100, 217, 138, 0.2)); /* Gradient Border */
+  /* Palette */
+  --ink: #070b0a;
+  --surface: #0e1513;
+  --surface-raised: #131c19;
+  --line: rgba(230, 237, 234, 0.08);
+  --primary: #10b981;
+  --primary-bright: #34d399;
+  --signal: #f43f5e;
+  --text: #e6edea;
+  --muted: #8a9a94;
 
-  .btn-effect {
-    position: relative;
-    transition: var(--transition);
+  /* Typography */
+  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-body: "Inter", "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* Legacy names used across the component styles, mapped onto the palette */
+  --bg-gradient: radial-gradient(1200px 600px at 10% -10%, rgba(16, 185, 129, 0.08), transparent 60%),
+    radial-gradient(900px 500px at 110% 30%, rgba(244, 63, 94, 0.05), transparent 60%), var(--ink);
+  --lightest-slate: var(--text);
+  --nav-color: rgba(7, 11, 10, 0.06);
+  --mobile-nav: rgba(7, 11, 10, 0.92);
+  --green-bright: var(--primary-bright);
+  --color-hover: var(--surface);
+  --box-color: rgba(14, 21, 19, 0.82);
+  --anchor-text: linear-gradient(90deg, var(--primary-bright) 0%, var(--primary) 55%, var(--text) 100%);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-box: 0 12px 40px rgba(0, 0, 0, 0.45);
+  --drop-shadow: drop-shadow(0 0 4px rgba(52, 211, 153, 0.6));
+  --transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  --bottom-gradient: linear-gradient(120deg, rgba(16, 185, 129, 0.8), rgba(16, 185, 129, 0.25), rgba(244, 63, 94, 0.55), rgba(16, 185, 129, 0.25), rgba(16, 185, 129, 0.8));
+  --gradient-border: linear-gradient(120deg, rgba(16, 185, 129, 0.45), rgba(16, 185, 129, 0.08), rgba(244, 63, 94, 0.35), rgba(16, 185, 129, 0.15));
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background-color: var(--ink);
+}
+
+/* Faint lab-grid behind everything */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(230, 237, 234, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%);
+}
+
+/* Buttons: lift with an emerald glow and nudge the icon forward */
+.btn-effect {
+  position: relative;
+  transition: var(--transition);
+}
+
+.btn-effect:hover,
+.btn-effect:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.6);
+  outline: none;
+}
+
+.btn-effect:hover .button-icon,
+.btn-effect:hover .btn-icon {
+  transform: translateX(4px);
+}
+
+/* Small mono label with a pulsing red "signal" dot */
+.signal-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.signal-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--signal);
+  flex-shrink: 0;
+}
+
+.signal-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--signal);
+  animation: signal-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes signal-ping {
+  75%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary-bright);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-dot::after {
+    animation: none;
   }
 
-  .btn-effect:hover {
-    transform: translate(-5px, -5px);
-    outline: none;
-  }
-
-  .btn-effect::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%; 
-    bottom: 0;
-    left: 0;
-    background-color: transparent; 
-    transform: translate(0, 0) scale(1); 
-    transition: var(--transition);
-    z-index: -1;
-    border-radius: inherit;
-  }
-
-  .btn-effect:hover::after {
-    box-shadow: 4px 4px 0 0 var(--green-bright); 
-    transform: translate(0, 0) scale(1); 
-    z-index: -1; 
+  html {
+    scroll-behavior: auto !important;
   }
 }

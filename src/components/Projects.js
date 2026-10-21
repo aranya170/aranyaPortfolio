@@ -26,7 +26,7 @@ const CodeViewer = lazy(() => import("./CodeViewer"));
 function getFileIcon(file) {
   const iconStyle = { marginRight: 6, fontSize: 15, flexShrink: 0 };
   if (!file || !file.name)
-    return <VscMarkdown style={{ ...iconStyle, color: "#8da1b9" }} />;
+    return <VscMarkdown style={{ ...iconStyle, color: "#8a9a94" }} />;
   if (file.name.endsWith(".md"))
     return <VscMarkdown style={{ ...iconStyle, color: "#519975" }} />;
   if (file.name.endsWith(".sql"))
@@ -34,9 +34,9 @@ function getFileIcon(file) {
   if (file.name.endsWith(".ipynb"))
     return <FaPython style={{ ...iconStyle, color: "#3572A5" }} />;
   if (file.name.toLowerCase().includes("website") || file.type === "website") {
-    return <VscGlobe style={{ ...iconStyle, color: "#64D98A" }} />;
+    return <VscGlobe style={{ ...iconStyle, color: "#34d399" }} />;
   }
-  return <VscMarkdown style={{ ...iconStyle, color: "#8da1b9" }} />;
+  return <VscMarkdown style={{ ...iconStyle, color: "#8a9a94" }} />;
 }
 
 const getInitialOpenFolders = (projects) =>
@@ -208,7 +208,7 @@ export default function Projects() {
       });
 
       gsap.to(folderEl.querySelector(".folder-icon"), {
-        color: "#8da1b9",
+        color: "#8a9a94",
         duration: 0.3,
       });
 
@@ -232,7 +232,7 @@ export default function Projects() {
     if (!isCurrentlyOpen) {
       if (foldersRef.current?.[section]?.[idx]) {
         gsap.to(foldersRef.current[section][idx], {
-          backgroundColor: "rgba(100, 217, 138, 0.1)",
+          backgroundColor: "rgba(16, 185, 129, 0.1)",
           duration: 0.3,
           ease: "power2.out",
         });
@@ -285,7 +285,7 @@ export default function Projects() {
 
       if (foldersRef.current?.[section]?.[idx]) {
         gsap.to(foldersRef.current[section][idx], {
-          backgroundColor: "rgba(100, 217, 138, 0.1)",
+          backgroundColor: "rgba(16, 185, 129, 0.1)",
           duration: 0.3,
           ease: "power2.out",
         });
@@ -454,7 +454,7 @@ export default function Projects() {
                                 if (!isActive) {
                                   gsap.to(e.currentTarget, {
                                     backgroundColor:
-                                      "rgba(100, 217, 138, 0.05)",
+                                      "rgba(16, 185, 129, 0.05)",
                                     duration: 0.2,
                                   });
                                 }
@@ -486,7 +486,7 @@ export default function Projects() {
                                     marginRight: 6,
                                     color: isActive
                                       ? "var(--green-bright)"
-                                      : "#8da1b9",
+                                      : "#8a9a94",
                                     fontSize: 15,
                                     flexShrink: 0,
                                   }}
@@ -498,7 +498,7 @@ export default function Projects() {
                                     marginRight: 6,
                                     color: isActive
                                       ? "var(--green-bright)"
-                                      : "#8da1b9",
+                                      : "#8a9a94",
                                     fontSize: 15,
                                     flexShrink: 0,
                                   }}

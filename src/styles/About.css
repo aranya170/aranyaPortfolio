@@ -20,8 +20,8 @@
 
 .about-description p {
   margin-bottom: 22px;
-  color: var(--lightest-slate);
-  font-size: 20px;
+  color: var(--muted);
+  font-size: 17px;
   line-height: 1.8;
   text-align: left;
 }
@@ -58,19 +58,26 @@
 }
 
 .resume-button {
-  display: inline-block;
-  padding: 14px 26px;
-  border: 1.5px solid var(--green-bright);
-  border-radius: 4px;
-  color: var(--color-hover);
-  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 22px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(230, 237, 234, 0.03);
+  color: var(--text) !important;
+  font-family: var(--font-display);
+  font-size: 15px;
   font-weight: 600;
-  text-align: center;
   margin-top: 15px;
 }
 
+.resume-button:hover {
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
 .about-timeline-link {
-  font-size: 20px;
+  font-family: var(--font-mono);
+  font-size: 14px;
   position: relative;
   color: var(--green-bright);
 }
@@ -124,8 +131,8 @@
 .about-profile-image {
   width: 100%;
   height: auto;
-  border-radius: 12px;
-  border: 2px solid rgba(100, 217, 138, 0.3);
+  border-radius: 20px;
+  border: 1px solid var(--line);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   transition: var(--transition);
   object-fit: cover;
@@ -133,8 +140,8 @@
 
 .about-profile-image:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(100, 217, 138, 0.2);
-  border-color: var(--green-bright);
+  box-shadow: 0 12px 40px rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.5);
 }
 
 .about-text-content {

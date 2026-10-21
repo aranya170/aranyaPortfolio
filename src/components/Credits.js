@@ -57,7 +57,7 @@ const Credits = () => {
           >
             GitHub
           </a>
-          <span className="footer-separator"> | </span>
+          <span className="footer-separator" aria-hidden="true">/</span>
           <a
             href={socials.linkedin || "https://www.linkedin.com/in/aranya170"}
             target="_blank"

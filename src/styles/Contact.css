@@ -10,12 +10,18 @@
 
 #contact .section-header {
   justify-content: center !important;
-} 
+}
+
+/* Centered header: no trailing hairline */
+#contact .section-header::after {
+  display: none;
+}
 
 .contact-intro {
-  margin-bottom: 24px;
-  color: var(--lightest-slate);
-  font-size: 20px;
+  max-width: 620px;
+  margin: 0 auto 28px;
+  color: var(--muted);
+  font-size: 18px;
   line-height: 1.6;
   text-align: center;
 }
@@ -47,7 +53,7 @@
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(100, 217, 138, 0.1), rgba(100, 217, 138, 0.05));
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
   right: -100px;
   top: -100px;
   filter: blur(50px);
@@ -57,7 +63,7 @@
   position: absolute;
   width: 200px;
   height: 200px;
-  background: linear-gradient(135deg, rgba(100, 217, 138, 0.05), rgba(100, 217, 138, 0.02));
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.02));
   left: -80px;
   bottom: -80px;
   transform: rotate(45deg);
@@ -79,8 +85,8 @@
   width: 100%;
   padding: 16px 20px 16px 50px;
   border-radius: 10px;
-  background-color: rgba(30, 41, 59, 0.5);
-  border: 1px solid rgba(100, 217, 138, 0.1);
+  background-color: rgba(19, 28, 25, 0.5);
+  border: 1px solid rgba(16, 185, 129, 0.1);
   color: var(--lightest-slate);
   font-size: 16px;
   transition: border-color 0.3s ease, background-color 0.3s ease;
@@ -90,7 +96,7 @@
 .contact-textarea:focus {
   outline: none;
   border-color: var(--green-bright);
-  background-color: rgba(30, 41, 59, 0.7);
+  background-color: rgba(19, 28, 25, 0.7);
 }
 
 .contact-textarea {
@@ -126,18 +132,26 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: transparent;
-  color: var(--green-bright);
-  border: none;
-  padding: 10px 22px;
-  border: 1.5px solid var(--green-bright);
-  border-radius: 4px;
+  background-color: var(--primary);
+  color: #04110c;
+  padding: 12px 22px;
+  border: 1px solid var(--primary);
   margin-bottom: 10px;
-  border-radius: 8px;
+  border-radius: 10px;
+  font-family: var(--font-display);
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: var(--transition);
+}
+
+.contact-send-btn:hover:not(:disabled) {
+  background-color: var(--primary-bright);
+}
+
+.contact-send-btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
 }
 
 .btn-icon {
@@ -146,7 +160,7 @@
 
 .contact-info {
   padding-top: 20px;
-  border-top: 1px solid rgba(100, 217, 138, 0.1);
+  border-top: 1px solid rgba(16, 185, 129, 0.1);
   display: flex;
   justify-content: center;
 }
@@ -210,7 +224,7 @@
 }
 
 .reset-btn:hover {
-  background-color: rgba(100, 217, 138, 0.1);
+  background-color: rgba(16, 185, 129, 0.1);
 }
 
 /* Responsive styles */

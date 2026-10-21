@@ -1,13 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  FcIdea,
-  FcCommandLine,
-  FcGlobe,
-  FcGraduationCap,
-  FcReading,
-} from "react-icons/fc";
+import { FiZap, FiCompass, FiAward, FiCpu, FiUsers, FiTrendingUp } from "react-icons/fi";
 import "../styles/Timeline.css";
 import { usePortfolio } from "../context/PortfolioContext";
 
@@ -112,17 +106,19 @@ export default function Timeline() {
   const renderIcon = (type) => {
     switch (type) {
       case "idea":
-        return <FcIdea className="timeline-icon" />;
-      case "startup":
-        return <FcCommandLine className="timeline-icon" />;
-      case "statistics":
-        return <FcGlobe className="timeline-icon" />;
+        return <FiZap className="timeline-icon" />;
+      case "career":
+        return <FiCompass className="timeline-icon" />;
       case "education":
-        return <FcGraduationCap className="timeline-icon" />;
+        return <FiAward className="timeline-icon" />;
       case "research":
-        return <FcReading className="timeline-icon" />;
+        return <FiCpu className="timeline-icon" />;
+      case "startup":
+        return <FiUsers className="timeline-icon" />;
+      case "statistics":
+        return <FiTrendingUp className="timeline-icon" />;
       default:
-        return <FcIdea className="timeline-icon" />;
+        return <FiZap className="timeline-icon" />;
     }
   };
 
@@ -139,7 +135,9 @@ export default function Timeline() {
           {milestones.map((item, idx) => (
             <div
               key={item.id || idx}
-              className={`timeline-item ${idx % 2 === 0 ? "left" : "right"}`}
+              className={`timeline-item ${idx % 2 === 0 ? "left" : "right"}${
+                idx === milestones.length - 1 ? " is-current" : ""
+              }`}
               ref={(el) => (timelineItemsRef.current[idx] = el)}
             >
               <div className="timeline-dot">{renderIcon(item.type)}</div>

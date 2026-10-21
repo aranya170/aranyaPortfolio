@@ -7,21 +7,15 @@
   flex-direction: column;
   position: relative;
   color: var(--lightest-slate);
-  font-family: 'NTR', sans-serif;
-}
-
-/* Override the default section-title underline to be shorter and centered under the text */
-.gh-contrib-container .section-title:after {
-  width: 10%;
-  left: 1%;
+  font-family: var(--font-display);
 }
 
 
 
 .gh-tag {
-  background: rgba(100, 217, 138, 0.1);
+  background: rgba(16, 185, 129, 0.1);
   color: var(--green-bright);
-  border: 1px solid rgba(100, 217, 138, 0.3);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   padding: 4px 14px;
   border-radius: 100px;
   font-size: 0.75rem;
@@ -52,7 +46,7 @@
   font-size: 2.8rem;
   font-weight: 800;
   color: var(--green-bright);
-  text-shadow: 0 0 25px rgba(100, 217, 138, 0.3);
+  text-shadow: 0 0 25px rgba(16, 185, 129, 0.3);
 }
 
 .stat-label {
@@ -66,7 +60,7 @@
 
 .gh-graph-card {
   background: var(--box-color);
-  border: 1px solid rgba(100, 217, 138, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.2);
   padding: 40px;
   border-radius: 20px;
   backdrop-filter: blur(10px);

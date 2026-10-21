@@ -15,7 +15,7 @@
   bottom: 0;
   left: 50%;
   width: 4px;
-  background-color: rgba(136, 146, 176, 0.25);
+  background-color: rgba(230, 237, 234, 0.08);
   transform: translateX(-50%);
   border-radius: 2px;
   z-index: 1;
@@ -58,26 +58,34 @@
   position: absolute;
   left: 50%;
   top: 15px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: var(--color-hover);
-  border: 3px solid var(--green-bright);
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background-color: var(--surface);
+  border: 1px solid rgba(16, 185, 129, 0.55);
+  color: var(--primary-bright);
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2;
-  box-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+  box-shadow: 0 0 0 6px var(--ink), 0 0 18px rgba(16, 185, 129, 0.25);
   transition: box-shadow 0.3s ease;
 }
 
 .timeline-dot:hover {
-  box-shadow: 0 0 15px rgba(100, 255, 218, 0.8), 0 0 25px rgba(100, 255, 218, 0.4);
+  box-shadow: 0 0 0 6px var(--ink), 0 0 24px rgba(16, 185, 129, 0.5);
 }
 
 .timeline-icon {
-  font-size: 20px;
+  font-size: 18px;
+}
+
+/* The latest milestone is "live": signal-red marker */
+.timeline-item.is-current .timeline-dot {
+  border-color: rgba(244, 63, 94, 0.7);
+  color: var(--signal);
+  box-shadow: 0 0 0 6px var(--ink), 0 0 22px rgba(244, 63, 94, 0.35);
 }
 
 .timeline-content {
@@ -85,7 +93,8 @@
   padding: 25px;
   background-color: var(--box-color);
   backdrop-filter: blur(4px);
-  border-radius: 8px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
@@ -122,24 +131,29 @@
   justify-content: flex-start; 
 }
 
-.timeline-content h2 {
-  font-size: 22px;
-  color: var(--green-bright);
+.timeline-content h3 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
   margin: 0 0 10px 0;
 }
 
 .timeline-content p {
   font-size: 16px;
   line-height: 1.6;
-  color: var(--lightest-slate);
-  margin-bottom: 15px;
+  color: var(--muted);
+  margin-bottom: 0;
 }
 
 .timeline-date {
   position: absolute;
-  font-size: 20px;
-  top: 20px;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  top: 24px;
+  font-weight: 500;
   color: var(--green-bright);
   z-index: 3; 
   padding: 2px 8px; 
@@ -295,7 +309,7 @@
     padding: 15px;
   }
   
-  .timeline-content h2 {
+  .timeline-content h3 {
     font-size: 18px;
   }
   
