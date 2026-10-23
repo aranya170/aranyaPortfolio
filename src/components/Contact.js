@@ -235,10 +235,6 @@ export default function Contact() {
         </p>
       </div>
       <div className="contact-container">
-        <div className="contact-bg-elements">
-          <div className="contact-circle"></div>
-          <div className="contact-square"></div>
-        </div>
 
         <form className="contact-form" onSubmit={handleSend} ref={formRef}>
           <div className="form-group">

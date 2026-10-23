@@ -17,8 +17,7 @@
   top: 0;
   bottom: 0;
   width: 40%;
-  background: linear-gradient(90deg, transparent, var(--green-bright), rgba(244, 63, 94, 0.9), transparent);
-  box-shadow: 0 0 10px var(--green-bright);
+  background: var(--primary-bright);
   animation: sync-slide 1.4s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
 }
 

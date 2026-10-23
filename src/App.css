@@ -18,7 +18,7 @@ html {
 .App {
   font-family: var(--font-body);
   display: flex;
-  background: var(--bg-gradient);
+  background: var(--ink);
   margin: auto;
 }
 
@@ -91,7 +91,7 @@ a {
   flex: 1;
   height: 1px;
   max-width: 320px;
-  background: linear-gradient(90deg, rgba(230, 237, 234, 0.18), transparent);
+  background: var(--line);
 }
 
 .section-title {

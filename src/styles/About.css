@@ -41,7 +41,7 @@
   height: 1px;
   bottom: 10px;
   left: 0;
-  background-color: var(--anchor-text);
+  background-color: var(--primary-bright);
   transform-origin: bottom right;
   transition: transform 0.3s ease;
 }
@@ -49,7 +49,7 @@
 .about-description a:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
-  background: var(--anchor-text);
+  background: var(--primary-bright);
 }
 
 .highlight {
@@ -108,10 +108,7 @@
 
 .about-timeline-highlight {
   font-weight: 600;
-  background: var(--anchor-text);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+  color: var(--primary-bright);
 }
 
 .about-flex-container {

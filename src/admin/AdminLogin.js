@@ -70,7 +70,7 @@ export default function AdminLogin({ onLoginSuccess, onBackToSite }) {
             style={{
               width: 54,
               height: 54,
-              background: "linear-gradient(135deg, #64d98a, #208e4e)",
+              background: "#10b981",
               borderRadius: 14,
               display: "flex",
               alignItems: "center",

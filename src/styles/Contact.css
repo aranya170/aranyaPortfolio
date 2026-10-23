@@ -37,39 +37,6 @@
   z-index: 1;
 }
 
-.contact-bg-elements {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 20px;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  overflow: hidden;
-}
-
-.contact-circle {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
-  right: -100px;
-  top: -100px;
-  filter: blur(50px);
-}
-
-.contact-square {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.02));
-  left: -80px;
-  bottom: -80px;
-  transform: rotate(45deg);
-  filter: blur(40px);
-}
-
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -247,14 +214,6 @@
   
   .contact-send-btn {
     justify-content: center;
-  }
-
-  .contact-circle {
-    display: none;
-  }
-
-  .contact-square {
-    display: none;
   }
 }
 

@@ -56,11 +56,6 @@
   background: rgba(16, 185, 129, 0.12);
 }
 
-/* Logo PNG is drawn in the old mint; shift it onto the emerald palette */
-.logo {
-  filter: hue-rotate(18deg) saturate(1.1);
-}
-
 .navbar-star-btn {
   display: none;
   background: transparent;

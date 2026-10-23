@@ -20,12 +20,13 @@
   transition: var(--transition);
 }
 
-/* Vertical rail under the icons, ending in the signal colour */
+/* Vertical rail under the icons, capped with a signal-red tick */
 .side-navbar-divider {
   width: 1px;
   height: 56px;
   margin-bottom: 10px;
-  background: linear-gradient(180deg, var(--line), var(--signal));
+  background: var(--line);
+  border-bottom: 8px solid var(--signal);
 }
 
 .side-navbar button.star-btn {

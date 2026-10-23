@@ -413,14 +413,10 @@ export default function Projects() {
           <div key={section} className="projects-section-container">
             <div className="projects-directory-layout">
               <h3 className="project-section-title">
-                <span className="gradient-text">{section}</span> Projects
+                <span className="section-accent">{section}</span> Projects
               </h3>
               <div className="project-section">
                 <div className="directory-box">
-                  <div className="directory-bg-elements">
-                    <div className="directory-circle"></div>
-                    <div className="directory-square"></div>
-                  </div>
                   <div className="directory-sidebar">
                     <ul className="directory-tree">
                       {projects.map((project, idx) => {
